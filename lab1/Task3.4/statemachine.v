@@ -2,7 +2,8 @@ module statemachine ( slow_clock, resetb,
                       dscore, pscore, pcard3,
                       load_pcard1, load_pcard2,load_pcard3,
                       load_dcard1, load_dcard2, load_dcard3,
-                      player_win_light, dealer_win_light);
+                      player_win_light, dealer_win_light,
+                      balance );
 							 
 input slow_clock, resetb;
 input [3:0] dscore, pscore, pcard3;
@@ -23,6 +24,7 @@ output reg player_win_light, dealer_win_light;
 `define GameOver     5
 `define DealPlayer_3 6
 `define DealDealer_3 7
+`define BetState     8
 
 wire [4:0] present_state;
 reg [4:0] next_state;
@@ -59,7 +61,7 @@ dff #(5) state(.clk(slow_clock), .in(next_state), .out(present_state), .resetb(r
 				end
 			end
 			`GameOver: begin 
-				{next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3} = {`GameOver,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
+				{next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3} = {balance <= 0 ? `GameOver : `BetState,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
 				if (pscore < dscore)
 					{player_win_light,dealer_win_light} = 2'b01;
 				else if (pscore > dscore)
