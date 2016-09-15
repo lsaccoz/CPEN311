@@ -3,13 +3,13 @@ module datapath ( slow_clock, fast_clock, resetb,
                   load_dcard1, load_dcard2, load_dcard3,				
                   pcard3_out,
                   pscore_out, dscore_out,
-				  betenabled,
+		  betenabled, updatebalanceenable,
                   HEX5, HEX4, HEX3, HEX2, HEX1, HEX0, SW);
 						
 input slow_clock, fast_clock, resetb;
 input load_pcard1, load_pcard2, load_pcard3;
 input load_dcard1, load_dcard2, load_dcard3;
-input betenabled;
+input betenabled, updatebalanceenable;
 input [9:0] SW;
 output [3:0] pcard3_out;
 output [3:0] pscore_out, dscore_out;
