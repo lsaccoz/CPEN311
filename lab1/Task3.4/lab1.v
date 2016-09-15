@@ -40,7 +40,8 @@ datapath dp (.slow_clock(slow_clock),
              .HEX3(HEX3),
              .HEX2(HEX2),
              .HEX1(HEX1),
-             .HEX0(HEX0));
+             .HEX0(HEX0),
+			 .SW(KEY);
 							
 assign LEDR[3:0] = pscore;
 assign LEDR[7:4] = dscore;
