@@ -2,9 +2,10 @@
 // Assuming you don't modify the inputs and outputs of the various submodules,
 // you should not have to modify anything in this file.
 
-module lab1 (CLOCK_50, KEY, LEDR, HEX5, HEX4, HEX3, HEX2, HEX1, HEX0);
+module lab1 (CLOCK_50, KEY, LEDR, HEX5, HEX4, HEX3, HEX2, HEX1, HEX0, SW);
 input CLOCK_50;
 input [3:0] KEY;
+input [9:0] SW;
 output [9:0] LEDR;
 output [6:0] HEX5, HEX4, HEX3, HEX2, HEX1, HEX0;
 
@@ -21,6 +22,8 @@ assign resetb = KEY[3];
 assign slow_clock = KEY[0];
 assign fast_clock = CLOCK_50;
 
+wire betenabled;
+
 // instantiate the datapath
 	
 datapath dp (.slow_clock(slow_clock),
@@ -35,13 +38,14 @@ datapath dp (.slow_clock(slow_clock),
              .dscore_out(dscore),
              .pscore_out(pscore),
              .pcard3_out(pcard3),
+			 .betenabled(betenabled),
              .HEX5(HEX5),
              .HEX4(HEX4),
              .HEX3(HEX3),
              .HEX2(HEX2),
              .HEX1(HEX1),
              .HEX0(HEX0),
-			 .SW(KEY);
+			 .SW(SW);
 							
 assign LEDR[3:0] = pscore;
 assign LEDR[7:4] = dscore;
@@ -60,6 +64,7 @@ statemachine sm (.slow_clock(slow_clock),
                  .load_dcard2(load_dcard2),
                  .load_dcard3(load_dcard3),	
                  .player_win_light(LEDR[8]), 
-                 .dealer_win_light(LEDR[9]));
+                 .dealer_win_light(LEDR[9])
+				 .betenabled(betenabled));
 	
 endmodule
