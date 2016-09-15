@@ -3,8 +3,8 @@ module datapath ( slow_clock, fast_clock, resetb,
                   load_dcard1, load_dcard2, load_dcard3,				
                   pcard3_out,
                   pscore_out, dscore_out,
-		  betenabled, updatebalanceenable,
-                  HEX5, HEX4, HEX3, HEX2, HEX1, HEX0, SW);
+				  betenabled, updatebalanceenable,
+                  HEX5, HEX4, HEX3, HEX2, HEX1, HEX0, SW, balance);
 						
 input slow_clock, fast_clock, resetb;
 input load_pcard1, load_pcard2, load_pcard3;
@@ -14,6 +14,7 @@ input [9:0] SW;
 output [3:0] pcard3_out;
 output [3:0] pscore_out, dscore_out;
 output [6:0] HEX5, HEX4, HEX3, HEX2, HEX1, HEX0;
+output [7:0] balance;
 
 wire playerwin, dealerwin;
 assign playerwin = pscore_out > dscore_out;
@@ -28,7 +29,7 @@ assign dealerwin = pscore_out < dscore_out;
 wire [3:0] PCard1_out, PCard2_out, PCard3_out, DCard1_out, DCard2_out, DCard3_out;
 wire [3:0] new_card;
 wire [1:0] bettype;
-wire [7:0] betamt;
+wire [7:0] betamt, updatebalanceout;
 
 assign pcard3_out = PCard3_out;
 card7seg playerdsp_1 (.card(PCard1_out),.seg7(HEX0));
@@ -55,7 +56,7 @@ dealcard carddealer (.clock(fast_clock), .resetb(resetb), .new_card(new_card));
 dffe #(2) bettypereg (.in(SW[9:8]), .out(bettype), .enable(betenabled), .resetb(resetb), .clock(slow_clock));
 dffe #(8) betamtreg (.in(SW[7:0]), .out(betamt), .enable(betenabled), .resetb(resetb), .clock(slow_clock));
 
-dffe #(8) balance (.in(updatebalanceout), .out(balance), .enable(updatebalanceenable), .resetb(resetb);
+dffe #(8) balancer (.in(updatebalanceout), .out(balance), .enable(updatebalanceenable), .resetb(resetb);
 
 updatebalance balanceupdater(.dealerwin(dealerwin), .playerwin(playerwin), .currentbettype(bettype), .currentbetamount(betamt), .currentbalance(balance), .updatebalance(updatebalanceout));
 

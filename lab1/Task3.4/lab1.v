@@ -23,6 +23,8 @@ assign slow_clock = KEY[0];
 assign fast_clock = CLOCK_50;
 
 wire betenabled;
+wire updatebalanceenable;
+wire [7:0] balance;
 
 // instantiate the datapath
 	
@@ -39,13 +41,15 @@ datapath dp (.slow_clock(slow_clock),
              .pscore_out(pscore),
              .pcard3_out(pcard3),
 			 .betenabled(betenabled),
+			 .updatebalanceenable(updatebalanceenable),
              .HEX5(HEX5),
              .HEX4(HEX4),
              .HEX3(HEX3),
              .HEX2(HEX2),
              .HEX1(HEX1),
              .HEX0(HEX0),
-			 .SW(SW);
+			 .SW(SW),
+			 .balance(balance);
 							
 assign LEDR[3:0] = pscore;
 assign LEDR[7:4] = dscore;
@@ -65,6 +69,8 @@ statemachine sm (.slow_clock(slow_clock),
                  .load_dcard3(load_dcard3),	
                  .player_win_light(LEDR[8]), 
                  .dealer_win_light(LEDR[9])
-				 .betenabled(betenabled));
+				 .betenabled(betenabled),
+				 .updatebalanceenable(updatebalanceenable),
+				 .balance(balance));
 	
 endmodule
