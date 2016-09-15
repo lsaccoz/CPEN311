@@ -30,13 +30,13 @@ card7seg dealerdsp_1 (.card(DCard1_out),.seg7(HEX3));
 card7seg dealerdsp_2 (.card(DCard2_out),.seg7(HEX4));
 card7seg dealerdsp_3 (.card(DCard3_out),.seg7(HEX5));
 
-reg4 playerreg_1 (.in(new_card), .out(PCard1_out), .enable(load_pcard1), .resetb(resetb), .clock(slow_clock));
-reg4 playerreg_2 (.in(new_card), .out(PCard2_out), .enable(load_pcard2), .resetb(resetb), .clock(slow_clock));
-reg4 playerreg_3 (.in(new_card), .out(PCard3_out), .enable(load_pcard3), .resetb(resetb), .clock(slow_clock));
+dff playerreg_1 (.in(new_card), .out(PCard1_out), .enable(load_pcard1), .resetb(resetb), .clock(slow_clock));
+dff playerreg_2 (.in(new_card), .out(PCard2_out), .enable(load_pcard2), .resetb(resetb), .clock(slow_clock));
+dff playerreg_3 (.in(new_card), .out(PCard3_out), .enable(load_pcard3), .resetb(resetb), .clock(slow_clock));
 
-reg4 dealerreg_1 (.in(new_card), .out(DCard1_out), .enable(load_dcard1), .resetb(resetb), .clock(slow_clock));
-reg4 dealerreg_2 (.in(new_card), .out(DCard2_out), .enable(load_dcard2), .resetb(resetb), .clock(slow_clock));
-reg4 dealerreg_3 (.in(new_card), .out(DCard3_out), .enable(load_dcard3), .resetb(resetb), .clock(slow_clock));
+dff dealerreg_1 (.in(new_card), .out(DCard1_out), .enable(load_dcard1), .resetb(resetb), .clock(slow_clock));
+dff dealerreg_2 (.in(new_card), .out(DCard2_out), .enable(load_dcard2), .resetb(resetb), .clock(slow_clock));
+dff dealerreg_3 (.in(new_card), .out(DCard3_out), .enable(load_dcard3), .resetb(resetb), .clock(slow_clock));
 
 scorehand playerscore (.card1(PCard1_out),.card2(PCard2_out),.card3(PCard3_out),.total(pscore_out));
 scorehand dealerscore (.card1(DCard1_out),.card2(DCard2_out),.card3(DCard3_out),.total(dscore_out));
@@ -45,14 +45,15 @@ dealcard carddealer (.clock(fast_clock), .resetb(resetb), .new_card(new_card));
 
 endmodule
 
-module reg4(in, out, enable, resetb, clock);
-	input [3:0] in;
+module dff(in, out, enable, resetb, clock);
+	parameter n = 4;
+	input [n-1:0] in;
 	input enable, resetb, clock;
-	output reg [3:0] out;
+	output reg [n-1:0] out;
 	
 	always @(posedge clock, negedge resetb) begin
 		if(~resetb) begin
-			out<=4'd0;
+			out<=0;
 		end
 		else if(enable) begin
 			out<=in;
