@@ -82,3 +82,13 @@ dff #(5) state(.clk(slow_clock), .in(next_state), .out(present_state), .resetb(r
 		endcase
 	end
 endmodule
+
+module dff(in, out, resetb, clock);
+	parameter n = 5;
+	input [n-1:0] in;
+	input resetb, clock;
+	output reg [n-1:0] out;
+	
+	always @(posedge clock, negedge resetb)
+		out <= (~resetb) ? 0 : in;
+endmodule
