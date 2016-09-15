@@ -16,12 +16,10 @@ output reg player_win_light, dealer_win_light;
 // registers that hold the state.  You will want to review your notes from
 // CPEN 211 or equivalent if you have forgotten how to write a state machine.
 
-wire [4:0] present_state, next_state_reset;
+wire [4:0] present_state;
 reg [4:0] next_state;
 
-DFF_5 state(.clk(slow_clock), .in(next_state_reset), .out(present_state), .resetb(resetb));
-
-assign next_state_reset = next_state;
+DFF_5 state(.clk(slow_clock), .in(next_state), .out(present_state), .resetb(resetb));
 
 	always @(*) begin
 		case (present_state)
