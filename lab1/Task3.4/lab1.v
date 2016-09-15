@@ -54,6 +54,8 @@ datapath dp (.slow_clock(slow_clock),
 assign LEDR[3:0] = pscore;
 assign LEDR[7:4] = dscore;
 
+assign SW[7:0] = balance;
+
 // instantiate the state machine
 	
 statemachine sm (.slow_clock(slow_clock),
