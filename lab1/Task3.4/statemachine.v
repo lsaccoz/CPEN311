@@ -19,7 +19,7 @@ output reg player_win_light, dealer_win_light;
 wire [4:0] present_state;
 reg [4:0] next_state;
 
-DFF_5 state(.clk(slow_clock), .in(next_state), .out(present_state), .resetb(resetb));
+dff #(5) state(.clk(slow_clock), .in(next_state), .out(present_state), .resetb(resetb));
 
 	always @(*) begin
 		case (present_state)
@@ -73,20 +73,6 @@ DFF_5 state(.clk(slow_clock), .in(next_state), .out(present_state), .resetb(rese
 			end
 			default:{next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light} = {5'd0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
 		endcase
-	end
-endmodule
-
-module DFF_5(clk, in, out, resetb) ;
-	input clk, resetb;
-	input [4:0] in;
-	output reg [4:0] out;
-	
-	always @(posedge clk or negedge resetb) begin
-		if(~resetb) begin
-			out<=4'd0;
-		end
-		else
-			out = in ;
 	end
 endmodule
 			
