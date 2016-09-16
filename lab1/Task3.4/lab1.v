@@ -51,8 +51,8 @@ datapath dp (.slow_clock(slow_clock),
 			 .SW(SW),
 			 .balance(balance));
 							
-assign LEDR[3:0] = pscore;
-assign LEDR[7:4] = dscore;
+assign LEDR[3:0] = betenabled ? balance[3:0] : pscore;
+assign LEDR[7:4] = betenabled ? balance[7:4] : dscore;
 
 // instantiate the state machine
 	
