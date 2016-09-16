@@ -56,7 +56,7 @@ assign LEDR[7:4] = betenabled ? balance[7:4] : dscore;
 
 // instantiate the state machine
 	
-statemachine sm (.slow_clock(slow_clock),
+statemachine statem (.slow_clock(slow_clock),
                  .resetb(resetb),
                  .dscore(dscore),
                  .pscore(pscore),

@@ -11,13 +11,15 @@ module updatebalance(dealerwin, playerwin, currentbettype, currentbetamount, cur
 		ch = 1'b0;
 		if (currentbalance + currentbetamount < 256) begin
 			if (dealerwin && playerwin && (currentbettype==2'b11||currentbettype==2'b00))
-				{updatebalance, ch} = {currentbalance + currentbetamount, 1'b1};
+				{updatebalance, ch} <= {currentbalance + currentbetamount, 1'b1};
 			else if (dealerwin && (currentbettype==2'b10))
-				{updatebalance, ch} = {currentbalance + currentbetamount, 1'b1};
+				{updatebalance, ch} <= {currentbalance + currentbetamount, 1'b1};
 			else if (playerwin && (currentbettype==2'b01))
-				{updatebalance, ch} = {currentbalance + currentbetamount, 1'b1};
+				{updatebalance, ch} <= {currentbalance + currentbetamount, 1'b1};
 		end
 		else if (currentbalance - currentbetamount >= 0 && ~ch)
-			updatebalance = currentbalance - currentbetamount;
+			updatebalance <= currentbalance - currentbetamount;
+		else
+			updatebalance <= currentbalance;
 	end
 endmodule

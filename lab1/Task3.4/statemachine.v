@@ -31,7 +31,7 @@ output reg betenabled, updatebetenable;
 wire [4:0] present_state;
 reg [4:0] next_state;
 
-dff #(5) state(.clk(slow_clock), .in(next_state), .out(present_state), .resetb(resetb));
+flipflop #(5) stateff(.clock(slow_clock), .in(next_state), .out(present_state), .resetb(resetb));
 
 	always @(*) begin
 		case (present_state)
@@ -58,6 +58,7 @@ dff #(5) state(.clk(slow_clock), .in(next_state), .out(present_state), .resetb(r
 					next_state=`DealPlayer_3;
 					load_dcard3=1'b0;
 					load_pcard3=1'b1;
+					updatebetenable=1'b0;
 				end
 				else begin 
 					next_state=`GameOver;
@@ -91,7 +92,7 @@ dff #(5) state(.clk(slow_clock), .in(next_state), .out(present_state), .resetb(r
 	end
 endmodule
 
-module dff(in, out, resetb, clock);
+module flipflop(in, out, resetb, clock);
 	parameter n = 5;
 	input [n-1:0] in;
 	input resetb, clock;
