@@ -18,15 +18,15 @@ output reg betenabled, updatebetenable;
 // registers that hold the state.  You will want to review your notes from
 // CPEN 211 or equivalent if you have forgotten how to write a state machine.
 
-`define BetState     0
-`define DealPlayer_1 1
-`define DealDealer_1 2
-`define DealPlayer_2 3
-`define DealDealer_2 4
-`define CheckStatus  5
-`define GameOver     6
-`define DealPlayer_3 7
-`define DealDealer_3 8
+`define BetState     4'd0
+`define DealPlayer_1 4'd1
+`define DealDealer_1 4'd2
+`define DealPlayer_2 4'd3
+`define DealDealer_2 4'd4
+`define CheckStatus  4'd5
+`define GameOver     4'd6
+`define DealPlayer_3 4'd7
+`define DealDealer_3 4'd8
 
 wire [4:0] present_state;
 reg [4:0] next_state;

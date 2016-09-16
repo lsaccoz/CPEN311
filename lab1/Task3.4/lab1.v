@@ -49,7 +49,7 @@ datapath dp (.slow_clock(slow_clock),
              .HEX1(HEX1),
              .HEX0(HEX0),
 			 .SW(SW),
-			 .balance(balance);
+			 .balance(balance));
 							
 assign LEDR[3:0] = pscore;
 assign LEDR[7:4] = dscore;
@@ -68,9 +68,8 @@ statemachine sm (.slow_clock(slow_clock),
                  .load_dcard2(load_dcard2),
                  .load_dcard3(load_dcard3),	
                  .player_win_light(LEDR[8]), 
-                 .dealer_win_light(LEDR[9])
+                 .dealer_win_light(LEDR[9]),
 				 .betenabled(betenabled),
 				 .updatebalanceenable(updatebalanceenable),
 				 .balance(balance));
-	
 endmodule

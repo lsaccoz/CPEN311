@@ -56,7 +56,7 @@ dealcard carddealer (.clock(fast_clock), .resetb(resetb), .new_card(new_card));
 dffe #(2) bettypereg (.in(SW[9:8]), .out(bettype), .enable(betenabled), .resetb(resetb), .clock(slow_clock));
 dffe #(8) betamtreg (.in(SW[7:0]), .out(betamt), .enable(betenabled), .resetb(resetb), .clock(slow_clock));
 
-dffe #(8) balancer (.in(updatebalanceout), .out(balance), .enable(updatebalanceenable), .resetb(resetb);
+dffe #(8) balancer (.in(updatebalanceout), .out(balance), .enable(updatebalanceenable), .resetb(resetb));
 
 updatebalance balanceupdater(.dealerwin(dealerwin), .playerwin(playerwin), .currentbettype(bettype), .currentbetamount(betamt), .currentbalance(balance), .updatebalance(updatebalanceout));
 
