@@ -3,7 +3,7 @@ module statemachine ( slow_clock, resetb,
                       load_pcard1, load_pcard2,load_pcard3,
                       load_dcard1, load_dcard2, load_dcard3,
                       player_win_light, dealer_win_light,
-                      balance, betenabled, updatebetenable );
+                      balance, betenabled, updatebalanceenable );
 							 
 input slow_clock, resetb;
 input [7:0] balance;
@@ -11,7 +11,7 @@ input [3:0] dscore, pscore, pcard3;
 output reg load_pcard1, load_pcard2, load_pcard3;
 output reg load_dcard1, load_dcard2, load_dcard3;
 output reg player_win_light, dealer_win_light;
-output reg betenabled, updatebetenable;
+output reg betenabled, updatebalanceenable;
 
 // The code describing your state machine will go here.  Remember that
 // a state machine consists of next state logic, output logic, and the 
@@ -35,40 +35,40 @@ flipflop #(5) stateff(.clock(slow_clock), .in(next_state), .out(present_state), 
 
 	always @(*) begin
 		case (present_state)
-			`BetState: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled, updatebetenable} = {`DealPlayer_1,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0};
-			`DealPlayer_1: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled, updatebetenable} = {`DealDealer_1,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
-			`DealDealer_1: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled, updatebetenable} = {`DealPlayer_2,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
-			`DealPlayer_2: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled, updatebetenable} = {`DealDealer_2,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0};
-			`DealDealer_2: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebetenable} = {`CheckStatus,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
+			`BetState: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`DealPlayer_1,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0};
+			`DealPlayer_1: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`DealDealer_1,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
+			`DealDealer_1: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`DealPlayer_2,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
+			`DealPlayer_2: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`DealDealer_2,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0};
+			`DealDealer_2: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`CheckStatus,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
 			`CheckStatus: begin
 				{load_dcard1, load_dcard2, load_pcard1, load_pcard2, player_win_light, dealer_win_light,betenabled} = {1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
 				if (pscore >= 4'd8 || dscore >= 4'd8) begin
 					next_state=`GameOver;
 					load_dcard3=1'b0;
 					load_pcard3=1'b0;
-					updatebetenable=1'b1;
+					updatebalanceenable=1'b1;
 				end
 				else if ((pscore == 4'd6 || pscore == 4'd7) && dscore <= 4'd5) begin
 					next_state=`GameOver;
 					load_dcard3=1'b1;
 					load_pcard3=1'b0;
-					updatebetenable=1'b1;
+					updatebalanceenable=1'b1;
 				end
 				else if (pscore<=4'd5) begin
 					next_state=`DealPlayer_3;
 					load_dcard3=1'b0;
 					load_pcard3=1'b1;
-					updatebetenable=1'b0;
+					updatebalanceenable=1'b0;
 				end
 				else begin 
 					next_state=`GameOver;
 					load_dcard3=1'b0;
 					load_pcard3=1'b0;
-					updatebetenable=1'b1;
+					updatebalanceenable=1'b1;
 				end
 			end
 			`GameOver: begin 
-				{next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3,betenabled,updatebetenable} = {balance <= 0 ? `GameOver : `BetState,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
+				{next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3,betenabled,updatebalanceenable} = {balance <= 0 ? `GameOver : `BetState,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
 				if (pscore < dscore)
 					{player_win_light,dealer_win_light} = 2'b01;
 				else if (pscore > dscore)
@@ -77,7 +77,7 @@ flipflop #(5) stateff(.clock(slow_clock), .in(next_state), .out(present_state), 
 					{player_win_light,dealer_win_light} = 2'b11;
 			end
 			`DealPlayer_3: begin 
-				{next_state, load_dcard1, load_dcard2, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebetenable} = {`GameOver,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1};
+				{next_state, load_dcard1, load_dcard2, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`GameOver,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1};
 				if(pcard3 == 4'd9 && dscore <= 4'd3)
 					load_dcard3=1'b1;
 				else if(pcard3 == 4'd8 && dscore <= 4'd2)
@@ -87,7 +87,7 @@ flipflop #(5) stateff(.clock(slow_clock), .in(next_state), .out(present_state), 
 				else
 					load_dcard3=1'b0;
 			end
-			default: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebetenable} = {`BetState,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
+			default: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`BetState,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
 		endcase
 	end
 endmodule
