@@ -1,11 +1,11 @@
-module statemachine ( slow_clock, resetb,
+module statemachine ( slow_clock, resetb, moneyerr,
                       dscore, pscore, pcard3,
                       load_pcard1, load_pcard2,load_pcard3,
                       load_dcard1, load_dcard2, load_dcard3,
                       player_win_light, dealer_win_light,
                       balance, betenabled, updatebalanceenable );
 							 
-input slow_clock, resetb;
+input slow_clock, resetb, moneyerr;
 input [7:0] balance;
 input [3:0] dscore, pscore, pcard3;
 output reg load_pcard1, load_pcard2, load_pcard3;
@@ -28,14 +28,27 @@ output reg betenabled, updatebalanceenable;
 `define DealPlayer_3 4'd7
 `define DealDealer_3 4'd8
 
+
 wire [4:0] present_state;
 reg [4:0] next_state;
 
-flipflop #(5) stateff(.clock(slow_clock), .in(next_state), .out(present_state), .resetb(resetb));
+flipflop #(4) stateff(.clock(slow_clock), .in(next_state), .out(present_state), .resetb(resetb));
 
 	always @(*) begin
 		case (present_state)
-			`BetState: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`DealPlayer_1,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0};
+			`BetState: begin
+				{load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3,  dealer_win_light,updatebalanceenable} = {1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
+				if(moneyerr) begin
+					betenabled = 1'b0;
+					next_state = `BetState;
+					player_win_light = 1'b1;
+				end
+				else begin
+					betenabled = 1'b1;
+					next_state = `DealPlayer_1;
+					player_win_light = 1'b0;
+				end
+			end
 			`DealPlayer_1: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`DealDealer_1,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
 			`DealDealer_1: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`DealPlayer_2,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
 			`DealPlayer_2: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`DealDealer_2,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0};
@@ -68,7 +81,7 @@ flipflop #(5) stateff(.clock(slow_clock), .in(next_state), .out(present_state), 
 				end
 			end
 			`GameOver: begin 
-				{next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3,betenabled,updatebalanceenable} = {balance <= 0 ? `GameOver : `BetState,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
+				{next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3,betenabled,updatebalanceenable} = {`GameOver,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
 				if (pscore < dscore)
 					{player_win_light,dealer_win_light} = 2'b01;
 				else if (pscore > dscore)
@@ -99,5 +112,8 @@ module flipflop(in, out, resetb, clock);
 	output reg [n-1:0] out;
 	
 	always @(posedge clock, negedge resetb)
-		out <= (~resetb) ? 0 : in;
+		if(~resetb)
+			out=0;
+		else
+			out=in;
 endmodule

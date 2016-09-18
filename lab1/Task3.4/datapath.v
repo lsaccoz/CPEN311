@@ -1,12 +1,12 @@
-module datapath ( slow_clock, fast_clock, resetb,
+module datapath ( slow_clock, fast_clock, resetb, resetbal,
                   load_pcard1, load_pcard2, load_pcard3,
                   load_dcard1, load_dcard2, load_dcard3,				
                   pcard3_out,
                   pscore_out, dscore_out,
 				  betenabled, updatebalanceenable,
-                  HEX5, HEX4, HEX3, HEX2, HEX1, HEX0, SW, balance);
+                  HEX5, HEX4, HEX3, HEX2, HEX1, HEX0, SW, balance, moneyerr);
 						
-input slow_clock, fast_clock, resetb;
+input slow_clock, fast_clock, resetb, resetbal;
 input load_pcard1, load_pcard2, load_pcard3;
 input load_dcard1, load_dcard2, load_dcard3;
 input betenabled, updatebalanceenable;
@@ -15,6 +15,7 @@ output [3:0] pcard3_out;
 output [3:0] pscore_out, dscore_out;
 output [6:0] HEX5, HEX4, HEX3, HEX2, HEX1, HEX0;
 output [7:0] balance;
+output moneyerr;
 
 wire playerwin, dealerwin;
 assign playerwin = pscore_out > dscore_out;
@@ -54,11 +55,11 @@ scorehand dealerscore (.card1(DCard1_out),.card2(DCard2_out),.card3(DCard3_out),
 dealcard carddealer (.clock(fast_clock), .resetb(resetb), .new_card(new_card));
 
 flipflope #(2) bettypereg (.in(SW[9:8]), .out(bettype), .enable(betenabled), .resetb(resetb), .clock(slow_clock));
-flipflope #(8) betamtreg (.in(SW[7:0]), .out(betamt), .enable(betenabled), .resetb(resetb), .clock(slow_clock));
+flipflope #(8) betamtreg (.in(SW[7:0]), .out(betamt), .enable(betenabled), .resetb(resetbal), .clock(slow_clock));
 
-flipflope #(8) balancer (.in(updatebalanceout), .out(balance), .enable(updatebalanceenable), .resetb(resetb));
+betflipflop balancer (.in(updatebalanceout), .out(balance), .enable(updatebalanceenable), .resetbal(resetbal), .clock(slow_clock));
 
-updatebalance balanceupdater(.dealerwin(dealerwin), .playerwin(playerwin), .currentbettype(bettype), .currentbetamount(betamt), .currentbalance(balance), .updatebalance(updatebalanceout));
+updatebalance balanceupdater(.dealerwin(dealerwin), .playerwin(playerwin), .currentbettype(bettype), .currentbetamount(betamt), .currentbalance(balance), .updatebalance(updatebalanceout), .moneyerr(moneyerr));
 
 endmodule
 
@@ -71,6 +72,21 @@ module flipflope(in, out, enable, resetb, clock);
 	always @(posedge clock, negedge resetb) begin
 		if(~resetb) begin
 			out<=0;
+		end
+		else if(enable) begin
+			out<=in;
+		end
+	end
+endmodule
+
+module betflipflop(in, out, enable, resetbal, clock);
+	input [7:0] in;
+	input enable, clock, resetbal;
+	output reg [7:0] out;
+	
+	always @(posedge clock, negedge resetbal) begin
+		if(~resetbal) begin
+			out<=8'd128;
 		end
 		else if(enable) begin
 			out<=in;

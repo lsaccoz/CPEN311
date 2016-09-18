@@ -11,7 +11,7 @@ output [6:0] HEX5, HEX4, HEX3, HEX2, HEX1, HEX0;
 
 // Some local signals 
 
-wire fast_clock, slow_clock, resetb;
+wire fast_clock, slow_clock, resetb, resetbal;
 wire load_pcard1, load_pcard2, load_pcard3;
 wire load_dcard1, load_dcard2, load_dcard3;
 wire [3:0] pscore, dscore;
@@ -19,10 +19,11 @@ wire [3:0] pcard3;
 	
 
 assign resetb = KEY[3];
+assign resetbal = KEY[2];
 assign slow_clock = KEY[0];
 assign fast_clock = CLOCK_50;
 
-wire betenabled;
+wire betenabled, moneyerr;
 wire updatebalanceenable;
 wire [7:0] balance;
 
@@ -49,10 +50,18 @@ datapath dp (.slow_clock(slow_clock),
              .HEX1(HEX1),
              .HEX0(HEX0),
 			 .SW(SW),
-			 .balance(balance));
-							
-assign LEDR[3:0] = betenabled ? balance[3:0] : pscore;
-assign LEDR[7:4] = betenabled ? balance[7:4] : dscore;
+			 .balance(balance),
+			 .resetbal(resetbal),
+			 .moneyerr(moneyerr));	
+	
+always @(*) begin
+	if(betenabled)
+		LEDR[7:0] = balance[7:0];
+	else begin
+		LEDR[3:0] = pscore;
+		LEDR[7:4] = dscore;
+	end
+end
 
 // instantiate the state machine
 	
@@ -71,5 +80,6 @@ statemachine statem (.slow_clock(slow_clock),
                  .dealer_win_light(LEDR[9]),
 				 .betenabled(betenabled),
 				 .updatebalanceenable(updatebalanceenable),
-				 .balance(balance));
+				 .balance(balance),
+			 .moneyerr(moneyerr));
 endmodule
