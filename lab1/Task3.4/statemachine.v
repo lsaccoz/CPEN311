@@ -27,18 +27,19 @@ output reg betenabled, updatebalanceenable;
 `define GameOver     4'd6
 `define DealPlayer_3 4'd7
 `define DealDealer_3 4'd8
+`define UpdateBalance 4'd9
 
 
 wire [4:0] present_state;
 reg [4:0] next_state;
 
-flipflop #(4) stateff(.clock(slow_clock), .in(next_state), .out(present_state), .resetb(resetb));
+flipflop #(5) stateff(.clock(slow_clock), .in(next_state), .out(present_state), .resetb(resetb));
 
 	always @(*) begin
 		case (present_state)
 			`BetState: begin
-				{load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3,  dealer_win_light,updatebalanceenable} = {1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
-				if(moneyerr) begin
+				{load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, dealer_win_light,updatebalanceenable} = {1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
+				if(moneyerr==1'b1) begin
 					betenabled = 1'b0;
 					next_state = `BetState;
 					player_win_light = 1'b1;
@@ -54,32 +55,29 @@ flipflop #(4) stateff(.clock(slow_clock), .in(next_state), .out(present_state), 
 			`DealPlayer_2: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`DealDealer_2,1'b0,1'b0,1'b0,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0};
 			`DealDealer_2: {next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`CheckStatus,1'b0,1'b1,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
 			`CheckStatus: begin
-				{load_dcard1, load_dcard2, load_pcard1, load_pcard2, player_win_light, dealer_win_light,betenabled} = {1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
+				{load_dcard1, load_dcard2, load_pcard1, load_pcard2, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
 				if (pscore >= 4'd8 || dscore >= 4'd8) begin
-					next_state=`GameOver;
+					next_state=`UpdateBalance;
 					load_dcard3=1'b0;
 					load_pcard3=1'b0;
-					updatebalanceenable=1'b1;
 				end
 				else if ((pscore == 4'd6 || pscore == 4'd7) && dscore <= 4'd5) begin
-					next_state=`GameOver;
+					next_state=`UpdateBalance;
 					load_dcard3=1'b1;
 					load_pcard3=1'b0;
-					updatebalanceenable=1'b1;
 				end
 				else if (pscore<=4'd5) begin
 					next_state=`DealPlayer_3;
 					load_dcard3=1'b0;
 					load_pcard3=1'b1;
-					updatebalanceenable=1'b0;
 				end
 				else begin 
-					next_state=`GameOver;
+					next_state=`UpdateBalance;
 					load_dcard3=1'b0;
 					load_pcard3=1'b0;
-					updatebalanceenable=1'b1;
 				end
 			end
+			`UpdateBalance :{next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`GameOver,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1};
 			`GameOver: begin 
 				{next_state, load_dcard1, load_dcard2, load_dcard3, load_pcard1, load_pcard2, load_pcard3,betenabled,updatebalanceenable} = {`GameOver,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
 				if (pscore < dscore)
@@ -90,12 +88,12 @@ flipflop #(4) stateff(.clock(slow_clock), .in(next_state), .out(present_state), 
 					{player_win_light,dealer_win_light} = 2'b11;
 			end
 			`DealPlayer_3: begin 
-				{next_state, load_dcard1, load_dcard2, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`GameOver,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1};
-				if(pcard3 == 4'd9 && dscore <= 4'd3)
-					load_dcard3=1'b1;
-				else if(pcard3 == 4'd8 && dscore <= 4'd2)
+				{next_state, load_dcard1, load_dcard2, load_pcard1, load_pcard2, load_pcard3, player_win_light, dealer_win_light,betenabled,updatebalanceenable} = {`UpdateBalance,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0};
+				if(pcard3 == 4'd8 && dscore <= 4'd2)
 					load_dcard3=1'b1;
 				else if(dscore <= ((pcard3/2)+3) && pcard3 <= 4'd7)
+					load_dcard3=1'b1;
+				else if((pcard3 >= 4'd9) && (dscore <= 4'd3))
 					load_dcard3=1'b1;
 				else
 					load_dcard3=1'b0;

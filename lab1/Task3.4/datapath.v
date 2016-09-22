@@ -17,9 +17,11 @@ output [6:0] HEX5, HEX4, HEX3, HEX2, HEX1, HEX0;
 output [7:0] balance;
 output moneyerr;
 
-wire playerwin, dealerwin;
-assign playerwin = pscore_out > dscore_out;
-assign dealerwin = pscore_out < dscore_out;				
+wire playerwin = pscore_out >= dscore_out;
+wire dealerwin = pscore_out <= dscore_out;
+wire moneyerrnext;
+
+flipflope #(1) moneyerrff(.in(moneyerrnext), .out(moneyerr), .enable(updatebalanceenable), .resetb(resetbal), .clock(slow_clock));
 
 // The code describing your datapath will go here.  Your datapath 
 // will hierarchically instantiate six card7seg blocks, two scorehand
@@ -54,12 +56,12 @@ scorehand dealerscore (.card1(DCard1_out),.card2(DCard2_out),.card3(DCard3_out),
 
 dealcard carddealer (.clock(fast_clock), .resetb(resetb), .new_card(new_card));
 
-flipflope #(2) bettypereg (.in(SW[9:8]), .out(bettype), .enable(betenabled), .resetb(resetb), .clock(slow_clock));
+flipflope #(2) bettypereg (.in(SW[9:8]), .out(bettype), .enable(betenabled), .resetb(resetbal), .clock(slow_clock));
 flipflope #(8) betamtreg (.in(SW[7:0]), .out(betamt), .enable(betenabled), .resetb(resetbal), .clock(slow_clock));
 
 betflipflop balancer (.in(updatebalanceout), .out(balance), .enable(updatebalanceenable), .resetbal(resetbal), .clock(slow_clock));
 
-updatebalance balanceupdater(.dealerwin(dealerwin), .playerwin(playerwin), .currentbettype(bettype), .currentbetamount(betamt), .currentbalance(balance), .updatebalance(updatebalanceout), .moneyerr(moneyerr));
+updatebalance balanceupdater(.dealerwin(dealerwin), .playerwin(playerwin), .currentbettype(bettype), .currentbetamount(betamt), .currentbalance(balance), .updatebalance(updatebalanceout), .moneyerr(moneyerrnext));
 
 endmodule
 
@@ -86,7 +88,7 @@ module betflipflop(in, out, enable, resetbal, clock);
 	
 	always @(posedge clock, negedge resetbal) begin
 		if(~resetbal) begin
-			out<=8'd128;
+			out<=8'd64;
 		end
 		else if(enable) begin
 			out<=in;

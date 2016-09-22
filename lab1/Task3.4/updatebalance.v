@@ -4,7 +4,7 @@ module updatebalance(dealerwin, playerwin, currentbettype, currentbetamount, cur
 	input [7:0] currentbetamount;
 	input [7:0] currentbalance;
 	output reg [7:0] updatebalance;
-	output moneyerr;
+	output reg moneyerr;
 
 	reg ch;
 	always @(*) begin
@@ -15,10 +15,10 @@ module updatebalance(dealerwin, playerwin, currentbettype, currentbetamount, cur
 			end
 			else begin
 				moneyerr = 1'b0;
-			updatebalance = currentbalance + 8*currentbetamount;
+				updatebalance = currentbalance + 8*currentbetamount;
 			end
 		end
-		else if((playerwin && (currentbettype==2'b01))||(dealerwin && (currentbettype==2'b10))) begin
+		else if((playerwin && ~dealerwin && (currentbettype==2'b01))||(dealerwin && ~playerwin && (currentbettype==2'b10))) begin
 			if((currentbalance+currentbetamount)>256) begin
 				moneyerr = 1'b1;
 				updatebalance = currentbalance;
