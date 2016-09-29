@@ -1,0 +1,22 @@
+C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/scorehand.v {1 {vlog -work work -stats=none C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/scorehand.v
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module scorehand
+
+Top level modules:
+	scorehand
+
+} {} {}} C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/dealcard.v {1 {vlog -work work -sv -stats=none C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/dealcard.v
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module dealcard
+
+Top level modules:
+	dealcard
+
+} {} {}} C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/card7seg.v {1 {vlog -work work -stats=none C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/card7seg.v
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module card7seg
+
+Top level modules:
+	card7seg
+
+} {} {}}
