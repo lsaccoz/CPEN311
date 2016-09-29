@@ -58,32 +58,27 @@ vga_adapter #( .RESOLUTION("160x120"))
 
 
 // Your code to fill the screen goes here. 
+assign resetn = KEY[3];
 
 reg x_start, y_start;
 reg x_en, y_en;
-wire x_done, y_done; 
 
-assign resetn = KEY[3];
-
-wire [7:0] x_next, y_next;
+wire [7:0] x_next = (x_start) ? 0 : x + 1;
+wire [6:0] y_next = (y_start) ? 0 : y + 1;
 
 flipflope #(8) x_register (.in(x_next), .out(x), .en(x_en), .res(resetn), .clk(CLOCK_50);
 flipflope #(7) y_register (.in(y_next), .out(y), .en(y_en), .res(resetn), .clk(CLOCK_50);
 
-assign x_next = (x_start) ? 0 : x + 1;
-assign y_next = (y_start) ? 0 : y + 1;
-
 assign colour = x % 8;
 
-assign y_done = y == 120 ? 1 : 0;
-assign x_done = x == 160 ? 1 : 0;
+wire x_done = (x == 160) ? 1 : 0;
+wire y_done = (y == 120) ? 1 : 0;
 
 // == state machine --
 `define Init    2'd0
 `define X_Begin 2'd1
 `define Y_Begin 2'd2
 `define End     2'd3
-`define Absent  2'd4
 
 wire [1:0] present_state;
 reg  [1:0] next_state;
