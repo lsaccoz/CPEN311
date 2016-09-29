@@ -57,7 +57,9 @@ vga_adapter #( .RESOLUTION("160x120"))
 			.VGA_CLK(VGA_CLK));
 
 
-// Your code to fill the screen goes here. 
+// Your code to fill the screen goes here.
+	
+// == datapath ---------------
 assign resetn = KEY[3];
 
 reg x_start, y_start;
@@ -72,29 +74,36 @@ flipflope #(7) y_register (.in(y_next), .out(y), .en(y_en), .res(resetn), .clk(C
 assign colour = x % 8;
 
 wire x_done = (x == 160) ? 1 : 0;
-wire y_done = (y == 120) ? 1 : 0;
+wire y_done = (y == 120) ? 1 : 0;	
+// == datapath -----------------
 
-// == state machine --
-`define Init    2'd0
-`define X_Begin 2'd1
-`define Y_Begin 2'd2
-`define End     2'd3
+// == state machine -------------
+`define Init      4'd0 // to set appropriate start variables, etc
+`define X_Begin   4'd1 // to loop to set the screen to black
+`define Y_Begin   4'd2 // to loop to set the screen to black
+`define Draw      4'd3 // Draw the cricles (having a counter in this state)
+`define Y_Update  4'd4 // y_off = y_off + 1
+`define Crit_Upd  4'd5 // enter this state if crit <= 0, then change appropriate signals
+`define Dec_Offs  4'd6 // else, then change appropriate signals
+`define Crit_Upd2 4'd7 // update stuff
+`define Done      4'd8 // Absent
 
-wire [1:0] present_state;
-reg  [1:0] next_state;
+wire [3:0] present_state;
+reg  [3:0] next_state;
 
-flipflop #(2) state_register(.in(next_state), .out(present_state), .res(resetn), .clk(CLOCK_50));
+flipflop #(4) state_register(.in(next_state), .out(present_state), .res(resetn), .clk(CLOCK_50));
 
 always @(*) begin
 	case (present_state)
-		`Init:    {next_state, x_start, y_start, x_en, y_en, plot} = {`X_Begin, 5'b10100};
+		`Init:    {next_state, x_start, y_start, x_en, y_en, plot} =
+		{`X_Begin,     1'b1 5'b10100};
 		`X_Begin: {next_state, x_start, y_start, x_en, y_en, plot} = (x_done) ? {`End,     5'b00000} : {`Y_Begin, 5'b01011};
 		`Y_Begin: {next_state, x_start, y_start, x_en, y_en, plot} = (y_done) ? {`X_Begin, 5'b00100} : {`Y_Begin, 5'b00011};
 		`End:     {next_state, x_start, y_start, x_en, y_en, plot} = {`End, 5'b00000};
 		default:  {next_state, x_start, y_start, x_en, y_en, plot} = {`Init, 5'b00000};
 	endcase
 end
-// == state machine --
+// == state machine ------------------------
 
 endmodule
 
