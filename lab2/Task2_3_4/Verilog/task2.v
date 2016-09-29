@@ -66,8 +66,8 @@ reg x_en, y_en;
 wire [7:0] x_next = (x_start) ? 0 : x + 1;
 wire [6:0] y_next = (y_start) ? 0 : y + 1;
 
-flipflope #(8) x_register (.in(x_next), .out(x), .en(x_en), .res(resetn), .clk(CLOCK_50);
-flipflope #(7) y_register (.in(y_next), .out(y), .en(y_en), .res(resetn), .clk(CLOCK_50);
+flipflope #(8) x_register (.in(x_next), .out(x), .en(x_en), .res(resetn), .clk(CLOCK_50));
+flipflope #(7) y_register (.in(y_next), .out(y), .en(y_en), .res(resetn), .clk(CLOCK_50));
 
 assign colour = x % 8;
 
@@ -83,10 +83,10 @@ wire y_done = (y == 120) ? 1 : 0;
 wire [1:0] present_state;
 reg  [1:0] next_state;
 
-flipflop #(2) (.in(next_state), .out(present_state), .res(resetn), .clk(CLOCK_50))
+flipflop #(2) state_register(.in(next_state), .out(present_state), .res(resetn), .clk(CLOCK_50));
 
 always @(*) begin
-	case (present_state) begin
+	case (present_state)
 		`Init:    {next_state, x_start, y_start, x_en, y_en, plot} = {`X_Begin, 5'b10100};
 		`X_Begin: {next_state, x_start, y_start, x_en, y_en, plot} = (x_done) ? {`End,     5'b00000} : {`Y_Begin, 5'b01011};
 		`Y_Begin: {next_state, x_start, y_start, x_en, y_en, plot} = (y_done) ? {`X_Begin, 5'b00100} : {`Y_Begin, 5'b00011};
