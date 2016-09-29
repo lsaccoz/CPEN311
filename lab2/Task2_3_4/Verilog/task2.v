@@ -35,78 +35,68 @@ parameter WHITE = 3'b111;
 wire resetn;
 wire [7:0] x;
 wire [6:0] y;
-reg [2:0] colour;
+wire [2:0] colour;
 reg plot;
    
 // instantiate VGA adapter 
 	
 vga_adapter #( .RESOLUTION("160x120"))
     vga_u0 (.resetn(KEY[3]),
-	         .clock(CLOCK_50),
-			   .colour(colour),
-			   .x(x),
-			   .y(y),
-			   .plot(plot),
-			   .VGA_R(VGA_R),
-			   .VGA_G(VGA_G),
-			   .VGA_B(VGA_B),	
-			   .VGA_HS(VGA_HS),
-			   .VGA_VS(VGA_VS),
-			   .VGA_BLANK(VGA_BLANK),
-			   .VGA_SYNC(VGA_SYNC),
-			   .VGA_CLK(VGA_CLK));
+	        .clock(CLOCK_50),
+			.colour(colour),
+			.x(x),
+			.y(y),
+			.plot(plot),
+			.VGA_R(VGA_R),
+			.VGA_G(VGA_G),
+			.VGA_B(VGA_B),	
+			.VGA_HS(VGA_HS),
+			.VGA_VS(VGA_VS),
+			.VGA_BLANK(VGA_BLANK),
+			.VGA_SYNC(VGA_SYNC),
+			.VGA_CLK(VGA_CLK));
 
 
 // Your code to fill the screen goes here. 
 
 reg x_start, y_start;
 reg x_en, y_en;
-reg x_done, y_done; 
+wire x_done, y_done; 
 
-assign resetn = ~KEY[3];
+assign resetn = KEY[3];
 
 wire [7:0] x_next, y_next;
 
-flipflope #(7) x_register (.in(x_next), .out(x), .en(x_en), .res(resetn), .clk(CLOCK_50);
-flipflope #(6) y_register (.in(y_next), .out(y), .en(y_en), .res(resetn), .clk(CLOCK_50);
+flipflope #(8) x_register (.in(x_next), .out(x), .en(x_en), .res(resetn), .clk(CLOCK_50);
+flipflope #(7) y_register (.in(y_next), .out(y), .en(y_en), .res(resetn), .clk(CLOCK_50);
 
 assign x_next = (x_start) ? 0 : x + 1;
 assign y_next = (y_start) ? 0 : y + 1;
 
 assign colour = x % 8;
 
-//assign y_done = y == 120 ? 1 : 0;
-//assign x_done = x == 160 ? 1 : 0;
+assign y_done = y == 120 ? 1 : 0;
+assign x_done = x == 160 ? 1 : 0;
 
 // == state machine --
-`define Init    3'd0
-`define X_Begin 3'd1
-`define Y_Begin 3'd2
-`define End     3'd3
-`define Absent  3'd4
+`define Init    2'd0
+`define X_Begin 2'd1
+`define Y_Begin 2'd2
+`define End     2'd3
+`define Absent  2'd4
 
-wire [2:0] present_state;
-reg  [2:0] next_state;
+wire [1:0] present_state;
+reg  [1:0] next_state;
 
-flipflop #(3) (.in(next_state), .out(present_state), .res(resetn), .clk(CLOCK_50))
+flipflop #(2) (.in(next_state), .out(present_state), .res(resetn), .clk(CLOCK_50))
 
 always @(*) begin
 	case (present_state) begin
-		`Init: begin
-			{next_state, x_start, y_start, x_en, y_en, x_done, y_done, plot} = {`X_Begin, 1, 0, 1, 0, 0, 0, 0};
-		end
-		`X_Begin: begin
-			{next_state, x_start, y_start, x_en, y_en, x_done, y_done, plot} = {x_done ? `End : `Y_Begin, 0, 1, 0, 1, x == 160, 0, 0};
-		end
-		`Y_Begin: begin
-			{next_state, x_start, y_start, x_en, y_en, x_done, y_done, plot} = {y_done ? `X_Begin : `Y_Begin, 0, 1, 1, 0, 0, 0};
-		end
-		`End: begin
-			{next_state, x_start, y_start, x_en, y_en, x_done, y_done, plot} = {`Y_Begin, 0, 1, 1, 0, 0, 0};
-		end
-		default: begin
-			{next_state, x_start, y_start, x_en, y_en, x_done, y_done, plot} = {`Y_Begin, 0, 1, 1, 0, 0, 0};
-		end
+		`Init:    {next_state, x_start, y_start, x_en, y_en, plot} = {`X_Begin, 5'b10100};
+		`X_Begin: {next_state, x_start, y_start, x_en, y_en, plot} = (x_done) ? {`End,     5'b00000} : {`Y_Begin, 5'b01011};
+		`Y_Begin: {next_state, x_start, y_start, x_en, y_en, plot} = (y_done) ? {`X_Begin, 5'b00100} : {`Y_Begin, 5'b00011};
+		`End:     {next_state, x_start, y_start, x_en, y_en, plot} = {`End, 5'b00000};
+		default:  {next_state, x_start, y_start, x_en, y_en, plot} = {`Init, 5'b00000};
 	endcase
 end
 // == state machine --
@@ -121,8 +111,8 @@ module flipflope(in, out, en, res, clk);
 	input en, res, clk;
 	output reg [n-1:0] out;
 
-	always @(posedge clk, posedge res) begin
-		if(res)
+	always @(posedge clk, negedge res) begin
+		if(~res)
 			out<=0;
 		else if(en)
 			out<=in;
@@ -135,8 +125,8 @@ module flipflop(in, out, res, clk);
 	input res, clk;
 	output reg [n-1:0] out;
 
-	always @(posedge clk, posedge res)
-		out = (res) ? 0 : in;
+	always @(posedge clk, negedge res)
+		out = (~res) ? 0 : in;
 endmodule
 
 
