@@ -6,11 +6,18 @@ module statemachine (CLOCK_50, resetn,                                          
 					 
 input CLOCK_50, resetn;
 input x_done, y_done, c_done, crit_pos, loop_done;
-output x_start, y_start, c_start;
-output x_en, y_en, c_en, y_off_en, x_off_en, , crit_en, crit_sel;
-output [2:0] colour;
-output plot;
-output blank;
+output reg x_start, y_start, c_start;
+output reg x_en, y_en, c_en, y_off_en, x_off_en, crit_en, crit_sel;
+output reg [2:0] colour;
+output reg plot;
+output reg blank;
+
+parameter BLACK = 3'b000;
+parameter BLUE = 3'b001;
+parameter GREEN = 3'b010;
+parameter YELLOW = 3'b110;
+parameter RED = 3'b100;
+parameter WHITE = 3'b111;
 
 
 `define Init      4'd0 // to set appropriate start variables, etc
@@ -32,10 +39,10 @@ always @(*) begin
 	case (present_state)
 	
 		`Init:      {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} =
-				    {`X_Begin  , 1'b1   , 1'b0   , 1'b1, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b1} ;
+				    {`X_Begin  , 1'b1   , 1'b0   , 1'b1, 1'b0, BLACK , 1'b0   , 1'b0, 1'b1    , 1'b0    , 1'b1   , 1'b0    , 1'b0, 1'b1} ;
 				  
 		`X_Begin:   {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} = (x_done)    ?
-				    {`Draw,    , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b1   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b1} :
+				    {`Draw     , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b1   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b1} :
 				    {`Y_Begin  , 1'b0   , 1'b1   , 1'b0, 1'b1, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b1} ;
 														   
 		`Y_Begin:   {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} = (y_done)    ?
@@ -48,11 +55,11 @@ always @(*) begin
 				  
 		`Y_Update:  {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} = (crit_pos)  ?
 				    {`Dec_Offs , 1'b0   , 1'b0   , 1'b0, 1'b0, BLUE  , 1'b0   , 1'b0, 1'b1    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b0} :
-				    {`Crit_Upd , 1'b0   , 1'b0   , 1'b0, 1'b0, BLUE  , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b1   , 1'b0    , 1'b0, 1'b0} ;
+				    {`Crit_Upd , 1'b0   , 1'b0   , 1'b0, 1'b0, BLUE  , 1'b1   , 1'b1, 1'b0    , 1'b0    , 1'b1   , 1'b0    , 1'b0, 1'b0} ;
 				  
 		`Crit_Upd:  {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} = (loop_done) ?
 				    {`Done     , 1'b0   , 1'b0   , 1'b0, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b0} :
-				    {`Draw     , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b1   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b0} ;
+				    {`Draw     , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b0   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b0} ;
 				  
 		`Dec_Offs:  {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} = 
 		            {`Crit_Upd2, 1'b0   , 1'b0   , 1'b0, 1'b0, BLUE  , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b1   , 1'b1    , 1'b0, 1'b0} ;
@@ -62,7 +69,7 @@ always @(*) begin
 					{`Draw     , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b1   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b0} ;
 					
 		`Done:      {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} =
-					{`Done     , 1'b0   , 1'b0   , 1'b0, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b0}
+					{`Done     , 1'b0   , 1'b0   , 1'b0, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b0};
 		
 		default:    {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} =
 				    {`Init     , 1'b0   , 1'b0   , 1'b0, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b0};

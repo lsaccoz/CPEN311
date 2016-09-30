@@ -1,6 +1,6 @@
 
 
-module task2 (CLOCK_50, 
+module task3 (CLOCK_50, 
 		 KEY,             
        VGA_R, VGA_G, VGA_B, 
        VGA_HS,             
@@ -18,25 +18,28 @@ output VGA_BLANK;
 output VGA_SYNC;            
 output VGA_CLK;
 
-// Some constants that might be useful for you
+wire x_start,y_start;
+wire x_enable,y_enable;
+wire [2:0] colour;
+wire c_start, c_en;
+wire x_off_en,y_off_en;
+wire crit_en, crit_sel;
+wire plot;
+
+wire [7:0] x;
+wire [6:0] y;
+wire c_done;
+wire crit_pos;
+wire loop_done;
+wire resetn;
+wire x_done, y_done;
+wire blank;
+
+
+assign resetn = KEY[3];
 
 parameter SCREEN_WIDTH = 160;
 parameter SCREEN_HEIGHT = 120;
-
-parameter BLACK = 3'b000;
-parameter BLUE = 3'b001;
-parameter GREEN = 3'b010;
-parameter YELLOW = 3'b110;
-parameter RED = 3'b100;
-parameter WHITE = 3'b111;
-
-  // To VGA adapter
-  
-wire resetn;
-wire [7:0] x;
-wire [6:0] y;
-wire [2:0] colour;
-reg plot;
    
 // instantiate VGA adapter 
 	
@@ -58,34 +61,16 @@ vga_adapter #( .RESOLUTION("160x120"))
 
 
 // Your code to fill the screen goes here.
-	
-// == datapath ---------------
-assign resetn = KEY[3];
-
-wire x_start,y_start;
-wire x_enable,y_enable;
-wire [2:0] colour;
-wire counter_start, counter_enable;
-wire x_off_enable,y_off_enable;
-wire crit_enable, crit_sel;
-wire plot;
-
-
-wire [7:0] x;
-wire [6:0] y;
-wire c_done;
-wire crit_pos;
-wire loop_done;
 
 datapath dp(.CLOCK_50(CLOCK_50),.resetn(resetn),.x_start(x_start),.y_start(y_start),.x_enable(x_enable),.y_enable(y_enable),
-				.colour(colour),.counter_start(counter_start),.counter_enable(counter_enable),
-				.y_off_enable(y_off_enable),.x_off_enable(x_off_enable),.crit_enable(crit_enable),.crit_sel(crit_sel),
-				.plot(plot),.c_done(c_done),.crit_pos(crit_pos),.xdone(xdone),.ydone(ydone),.blank(blank),.x_en(x_en),.y_en(y_en));
+				.colour(colour),.counter_start(c_start),.counter_enable(c_en),
+				.y_off_enable(y_off_en),.x_off_enable(x_off_en),.crit_enable(crit_en),.crit_sel(crit_sel),
+				.plot(plot),.c_done(c_done),.crit_pos(crit_pos),.x_done(x_done),.y_done(y_done),.blank(blank),.x(x),.y(y),.loop_done(loop_done));
 
 
 statemachine sm(CLOCK_50, resetn, x_done, y_done, c_done, crit_pos,
 					loop_done,x_start,y_start, c_start,x_enable, y_enable,c_en,
-					y_off_en, x_off_en, crit_en, crit_sel,colour,plot,blank)
+					y_off_en, x_off_en, crit_en, crit_sel,colour,plot,blank);
 
 
 endmodule

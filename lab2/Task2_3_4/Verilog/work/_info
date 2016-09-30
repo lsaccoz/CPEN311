@@ -1,0 +1,230 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dD:/Dropbox/Year3/CPEN_TA/Labs/Lab3
+vdatapath
+Z0 !s110 1475218297
+!i10b 1
+!s100 hZa0ncJl7:kk;cEl6f2g?0
+IXDkh0Y_BlhGb;K64ne]SV0
+Z1 V`JN@9S9cnhjKRR_L]QIcM3
+Z2 dC:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog
+w1475218292
+8C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/datapath.v
+FC:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/datapath.v
+L0 1
+Z3 OV;L;10.3d;59
+r1
+!s85 0
+31
+!s108 1475218297.286000
+!s107 C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/datapath.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/datapath.v|
+!i113 1
+Z4 o-work work
+vflipflop
+R0
+!i10b 1
+!s100 >>UYT4Kg6IahK9j3ziF7=3
+I`S?k?7BTL;[idgX3J7oG=3
+R1
+R2
+Z5 w1475218025
+Z6 8C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/task3.v
+Z7 FC:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/task3.v
+L0 93
+R3
+r1
+!s85 0
+31
+Z8 !s108 1475218297.406000
+Z9 !s107 C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/task3.v|
+Z10 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/task3.v|
+!i113 1
+R4
+vflipflope
+R0
+!i10b 1
+!s100 01a2YV<T]SGY@DT]DXL_21
+IR;[?NbeSTXUz2j3YzVUQb3
+R1
+R2
+R5
+R6
+R7
+L0 79
+R3
+r1
+!s85 0
+31
+R8
+R9
+R10
+!i113 1
+R4
+vstatemachine
+R0
+!i10b 1
+!s100 3I?XJ:KhN0f:=LNi6_ffe1
+I;Xk>[lCLTdlKSo3?zY;kc3
+R1
+R2
+w1475217951
+8C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/statemachine.v
+FC:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/statemachine.v
+L0 1
+R3
+r1
+!s85 0
+31
+!s108 1475218297.337000
+!s107 C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/statemachine.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/statemachine.v|
+!i113 1
+R4
+vtask2
+!s110 1475211059
+!i10b 1
+!s100 ]L`211^E]m@ee;dTKlWF?2
+IdlSCl81<;`VmaYUM;L`io1
+R1
+R2
+w1475211057
+R6
+R7
+L0 3
+R3
+r1
+!s85 0
+31
+!s108 1475211059.143000
+R9
+R10
+!i113 1
+R4
+vtask3
+R0
+!i10b 1
+!s100 Gj8f=`=5@L?eFOObKOW?32
+ICQeRXkAJ?3P@^d55`=<Mh0
+R1
+R2
+R5
+R6
+R7
+L0 3
+R3
+r1
+!s85 0
+31
+R8
+R9
+R10
+!i113 1
+R4
+vtask3_tb
+R0
+!i10b 1
+!s100 AazL3@F:YTV2@HSX;]g_a1
+I930mIZLlcJS@hJ4KB93OL2
+R1
+R2
+w1475213699
+8C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/task3 _tb.v
+FC:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/task3 _tb.v
+L0 3
+R3
+r1
+!s85 0
+31
+!s108 1475218297.672000
+!s107 C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/task3 _tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/task3 _tb.v|
+!i113 1
+R4
+vvga_adapter
+R0
+!i10b 1
+!s100 ^k>mh9R69ZY:SOiVVRE?42
+IPf=X:?z9BzDZeA]6eSQn[3
+R1
+R2
+Z11 w1475207698
+8C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_adapter.v
+FC:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_adapter.v
+L0 78
+R3
+r1
+!s85 0
+31
+!s108 1475218297.460000
+!s107 C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_adapter.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_adapter.v|
+!i113 1
+R4
+vvga_address_translator
+R0
+!i10b 1
+!s100 Z`O4OYla;7H?DcIdfCeSj2
+IO=SIC[S4i_SB2Yee`Mc;a1
+R1
+R2
+R11
+8C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_address_translator.v
+FC:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_address_translator.v
+L0 4
+R3
+r1
+!s85 0
+31
+!s108 1475218297.512000
+!s107 C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_address_translator.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_address_translator.v|
+!i113 1
+R4
+vvga_controller
+R0
+!i10b 1
+!s100 efk:C[Ql4538<=f1MiFP:3
+IB@:<6_k@>YH3XLL^0O`Gm2
+R1
+R2
+R11
+8C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_controller.v
+FC:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_controller.v
+L0 9
+R3
+r1
+!s85 0
+31
+!s108 1475218297.562000
+!s107 C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_controller.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_controller.v|
+!i113 1
+R4
+vvga_pll
+R0
+!i10b 1
+!s100 4XSTjD`VEiamX^n1@5J`b3
+I2N<5Sl>79K:XT5FaQOam82
+R1
+R2
+R11
+8C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_pll.v
+FC:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_pll.v
+L0 36
+R3
+r1
+!s85 0
+31
+!s108 1475218297.622000
+!s107 C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_pll.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_pll.v|
+!i113 1
+R4
