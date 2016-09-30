@@ -1,0 +1,193 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/altera/15.0
+vcard7seg
+Z0 !s110 1473984774
+!i10b 1
+!s100 ajUa^ed9fF];i0A8BZ2;e3
+I4nOUMa>Ge@;>;j>5ERzhP2
+Z1 V`JN@9S9cnhjKRR_L]QIcM3
+Z2 dC:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4
+Z3 w1473976233
+8C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/card7seg.v
+FC:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/card7seg.v
+L0 1
+Z4 OV;L;10.3d;59
+r1
+!s85 0
+31
+!s108 1473984774.675000
+!s107 C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/card7seg.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/card7seg.v|
+!i113 1
+Z5 o-work work
+vdatapath
+R0
+!i10b 1
+!s100 l5cXb2^e=E6j>>4d9CXUk0
+InGdAn<E4baj[BD:naSHHU0
+R1
+R2
+Z6 w1473983557
+Z7 8C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/datapath.v
+Z8 FC:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/datapath.v
+L0 1
+R4
+r1
+!s85 0
+31
+Z9 !s108 1473984774.798000
+Z10 !s107 C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/datapath.v|
+Z11 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/datapath.v|
+!i113 1
+R5
+vdealcard
+DXx6 sv_std 3 std 0 22 <EOTafDcUY:cQeO^ICn]m3
+R0
+!i10b 1
+!s100 Q5_^f=FFdYM6MiJ9L8mXN1
+ID_00mC;G@jFN_h3]K>7@Y0
+R1
+!s105 dealcard_v_unit
+S1
+R2
+R3
+8C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/dealcard.v
+FC:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/dealcard.v
+L0 4
+R4
+r1
+!s85 0
+31
+!s108 1473984774.936000
+!s107 C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/dealcard.v|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/dealcard.v|
+!i113 1
+o-work work -sv
+vdff
+Z12 !s110 1473984775
+!i10b 1
+!s100 :?^e^M6Un?NDZh8RRV_TZ1
+IU``89OnIG?nFlc<jYdIP<1
+R1
+R2
+Z13 w1473983795
+Z14 8C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/statemachine.v
+Z15 FC:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/statemachine.v
+L0 94
+R4
+r1
+!s85 0
+31
+Z16 !s108 1473984775.304000
+Z17 !s107 C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/statemachine.v|
+Z18 !s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/statemachine.v|
+!i113 1
+R5
+vdffe
+R0
+!i10b 1
+!s100 Yc`5c9;jV4:6o@Wa^YNWd1
+IGdNkgXKbY^mlFTfFl>JQm2
+R1
+R2
+R6
+R7
+R8
+L0 65
+R4
+r1
+!s85 0
+31
+R9
+R10
+R11
+!i113 1
+R5
+vlab1
+R12
+!i10b 1
+!s100 ZI^SUO;G>[cU1aalKYb390
+IIb1A<10N_7M0d56:8B:N01
+R1
+R2
+w1473984688
+8C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/lab1.v
+FC:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/lab1.v
+L0 5
+R4
+r1
+!s85 0
+31
+!s108 1473984775.056000
+!s107 C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/lab1.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/lab1.v|
+!i113 1
+R5
+vscorehand
+R12
+!i10b 1
+!s100 mBXObDHlDIde?I@WRCgS43
+IiIU4mIHKQYJj3e?jT[YKU0
+R1
+R2
+R3
+8C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/scorehand.v
+FC:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/scorehand.v
+L0 2
+R4
+r1
+!s85 0
+31
+!s108 1473984775.185000
+!s107 C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/scorehand.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/scorehand.v|
+!i113 1
+R5
+vstatemachine
+R12
+!i10b 1
+!s100 08>:c?dQUJ`T^KDUjNF<52
+In6MYSjTCdbmhUdXJgYV2d3
+R1
+R2
+R13
+R14
+R15
+L0 1
+R4
+r1
+!s85 0
+31
+R16
+R17
+R18
+!i113 1
+R5
+vupdatebalance
+R12
+!i10b 1
+!s100 E?hHOmmbA:Jj[4^8dV78o1
+IS<aYlSjYc7C96KbRX;[=J0
+R1
+R2
+w1473984770
+8C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/updatebalance.v
+FC:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/updatebalance.v
+L0 1
+R4
+r1
+!s85 0
+31
+!s108 1473984775.434000
+!s107 C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/updatebalance.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab1/Task3.4/updatebalance.v|
+!i113 1
+R5
