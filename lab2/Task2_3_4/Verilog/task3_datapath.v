@@ -64,8 +64,8 @@ assign loop_done = offsety>offsetx;
 
 always @(*) begin
 	if(blank) begin
-		new_crit = -9;
-		new_offsetx = 10;
+		new_crit = -39;
+		new_offsetx = 40;
 	end
 	else begin
 		new_crit = crit_sel ? (crit+2*(offsety-offsetx)+1) : (crit+2*offsety+1);
