@@ -62,13 +62,13 @@ vga_adapter #( .RESOLUTION("160x120"))
 
 // Your code to fill the screen goes here.
 
-datapath dp(.CLOCK_50(CLOCK_50),.resetn(resetn),.x_start(x_start),.y_start(y_start),.x_enable(x_enable),.y_enable(y_enable),
+task3datapath dp(.CLOCK_50(CLOCK_50),.resetn(resetn),.x_start(x_start),.y_start(y_start),.x_enable(x_enable),.y_enable(y_enable),
 				.colour(colour),.counter_start(c_start),.counter_enable(c_en),
 				.y_off_enable(y_off_en),.x_off_enable(x_off_en),.crit_enable(crit_en),.crit_sel(crit_sel),
 				.plot(plot),.c_done(c_done),.crit_pos(crit_pos),.x_done(x_done),.y_done(y_done),.blank(blank),.x(x),.y(y),.loop_done(loop_done));
 
 
-statemachine sm(CLOCK_50, resetn, x_done, y_done, c_done, crit_pos,
+task3statemachine sm(CLOCK_50, resetn, x_done, y_done, c_done, crit_pos,
 					loop_done,x_start,y_start, c_start,x_enable, y_enable,c_en,
 					y_off_en, x_off_en, crit_en, crit_sel,colour,plot,blank);
 
