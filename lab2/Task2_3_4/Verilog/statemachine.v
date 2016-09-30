@@ -1,8 +1,8 @@
 module statemachine (CLOCK_50, resetn,                                            // INPUT: board signals
 					 x_done, y_done, c_done, crit_pos, loop_done,                 // INPUT: control signals
 					 x_start, y_start, c_start,                                   // OUTPUT: start signals
-					 x_en, y_en, c_en, y_off_en, x_off_en, , crit_en, crit_sel,   // OUTPUT: enable and sel signals
-					 colour, plot);                                               // OUTPUT: colour and plot signals
+					 x_en, y_en, c_en, y_off_en, x_off_en, crit_en, crit_sel,   // OUTPUT: enable and sel signals
+					 colour, plot, blank);                                               // OUTPUT: colour and plot signals
 					 
 input CLOCK_50, resetn;
 input x_done, y_done, c_done, crit_pos, loop_done;
@@ -10,6 +10,7 @@ output x_start, y_start, c_start;
 output x_en, y_en, c_en, y_off_en, x_off_en, , crit_en, crit_sel;
 output [2:0] colour;
 output plot;
+output blank;
 
 
 `define Init      4'd0 // to set appropriate start variables, etc
@@ -30,41 +31,41 @@ flipflop #(4) state_register(.in(next_state), .out(present_state), .res(resetn),
 always @(*) begin
 	case (present_state)
 	
-		`Init:      {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot} =
-				    {`X_Begin  , 1'b1   , 1'b0   , 1'b1, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0} ;
+		`Init:      {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} =
+				    {`X_Begin  , 1'b1   , 1'b0   , 1'b1, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b1} ;
 				  
-		`X_Begin:   {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot} = (x_done)    ?
-				    {`Draw,    , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b1   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1} :
-				    {`Y_Begin  , 1'b0   , 1'b1   , 1'b0, 1'b1, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1} ;
+		`X_Begin:   {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} = (x_done)    ?
+				    {`Draw,    , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b1   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b1} :
+				    {`Y_Begin  , 1'b0   , 1'b1   , 1'b0, 1'b1, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b1} ;
 														   
-		`Y_Begin:   {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot} = (y_done)    ?
-		            {`X_Begin  , 1'b0   , 1'b0   , 1'b1, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0} :
-				    {`Y_Begin  , 1'b0   , 1'b0   , 1'b0, 1'b1, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1} ;
+		`Y_Begin:   {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} = (y_done)    ?
+		            {`X_Begin  , 1'b0   , 1'b0   , 1'b1, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b1} :
+				    {`Y_Begin  , 1'b0   , 1'b0   , 1'b0, 1'b1, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b1} ;
 		
-		`Draw:      {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot} = (c_done)    ?
-				    {`Y_Update , 1'b0   , 1'b0   , 1'b0, 1'b0, BLUE  , 1'b0   , 1'b0, 1'b0    , 1'b1    , 1'b0   , 1'b0    , 1'b0} :
-				    {`Draw     , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b0   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1} ;
+		`Draw:      {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} = (c_done)    ?
+				    {`Y_Update , 1'b0   , 1'b0   , 1'b0, 1'b0, BLUE  , 1'b0   , 1'b0, 1'b0    , 1'b1    , 1'b0   , 1'b0    , 1'b0, 1'b0} :
+				    {`Draw     , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b0   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b0} ;
 				  
-		`Y_Update:  {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot} = (crit_pos)  ?
-				    {`Dec_Offs , 1'b0   , 1'b0   , 1'b0, 1'b0, BLUE  , 1'b0   , 1'b0, 1'b1    , 1'b0    , 1'b0   , 1'b0    , 1'b0} :
-				    {`Crit_Upd , 1'b0   , 1'b0   , 1'b0, 1'b0, BLUE  , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b1   , 1'b0    , 1'b0} ;
+		`Y_Update:  {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} = (crit_pos)  ?
+				    {`Dec_Offs , 1'b0   , 1'b0   , 1'b0, 1'b0, BLUE  , 1'b0   , 1'b0, 1'b1    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b0} :
+				    {`Crit_Upd , 1'b0   , 1'b0   , 1'b0, 1'b0, BLUE  , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b1   , 1'b0    , 1'b0, 1'b0} ;
 				  
-		`Crit_Upd:  {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot} = (loop_done) ?
-				    {`Done     , 1'b0   , 1'b0   , 1'b0, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0} :
-				    {`Draw     , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b1   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1} ;
+		`Crit_Upd:  {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} = (loop_done) ?
+				    {`Done     , 1'b0   , 1'b0   , 1'b0, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b0} :
+				    {`Draw     , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b1   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b0} ;
 				  
-		`Dec_Offs:  {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot} = 
-		            {`Crit_Upd2, 1'b0   , 1'b0   , 1'b0, 1'b0, BLUE  , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b1   , 1'b1    , 1'b0} ;
+		`Dec_Offs:  {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} = 
+		            {`Crit_Upd2, 1'b0   , 1'b0   , 1'b0, 1'b0, BLUE  , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b1   , 1'b1    , 1'b0, 1'b0} ;
 				 
-		`Crit_Upd2: {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot} = (loop_done) ?
-					{`Done     , 1'b0   , 1'b0   , 1'b0, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0} :
-					{`Draw     , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b1   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1} ;
+		`Crit_Upd2: {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} = (loop_done) ?
+					{`Done     , 1'b0   , 1'b0   , 1'b0, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b0} :
+					{`Draw     , 1'b0   , 1'b0   , 1'b1, 1'b1, BLUE  , 1'b1   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b0} ;
 					
-		`Done:      {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot} =
-					{`Done     , 1'b0   , 1'b0   , 1'b0, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0}
+		`Done:      {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} =
+					{`Done     , 1'b0   , 1'b0   , 1'b0, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b0}
 		
-		default:    {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot} =
-				    {`Init     , 1'b0   , 1'b0   , 1'b0, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0};
+		default:    {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank} =
+				    {`Init     , 1'b0   , 1'b0   , 1'b0, 1'b0, BLACK , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b0};
 		
 	endcase
 end

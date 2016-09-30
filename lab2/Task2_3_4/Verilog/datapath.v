@@ -1,14 +1,16 @@
-module datapath(x_start,y_start,x_enable,y_enable,x_next,y_next,colour,counter_start,counter_enable,y_off_enable,x_off_enable,crit_enable,crit_sel,plot, c_done,crit_pos);
+module datapath(CLOCK_50,resetn,x_start,y_start,x_enable,y_enable,colour,counter_start,counter_enable,y_off_enable,x_off_enable,crit_enable,crit_sel,plot, c_done,crit_pos,x_done,y_done,blank);
 
 input x_start,y_start;
 input x_enable,y_enable;
-input [7:0] x_next;
-input [6:0] y_next;
+
 input [2:0] colour;
 input counter_start, counter_enable;
 input x_off_enable,y_off_enable;
 input crit_enable, crit_sel;
 input plot;
+input CLOCK_50,resetn;
+input blank;
+
 
 output [7:0] x;
 output [6:0] y;
@@ -16,8 +18,28 @@ output c_done = counter>8;
 output crit_pos = crit>0;
 output loop_done = offsety>offsetx;
 
-flipflope #(8) x_register (.in(x_next), .out(x), .en(x_en), .res(resetn), .clk(CLOCK_50));
-flipflope #(7) y_register (.in(y_next), .out(y), .en(y_en), .res(resetn), .clk(CLOCK_50));
+output x_done = (x == 160) ? 1 : 0;
+output y_done = (y == 120) ? 1 : 0;
+
+reg [7:0] x_next_reset;
+reg [6:0] y_next_reset;
+
+wire [7:0] x_next;
+wire [6:0] y_next;
+
+always @(*) begin
+	if(blank) begin
+		x_next_reset = (x_start) ? 0 : x + 1;
+		y_next_reset = (y_start) ? 0 : y + 1;
+	end
+	else begin
+		x_next_reset = x_next;
+		y_next_reset = y_next;
+	end
+end
+
+flipflope #(8) x_register (.in(x_next_reset), .out(x), .en(x_enable), .res(resetn), .clk(CLOCK_50));
+flipflope #(7) y_register (.in(y_next_reset), .out(y), .en(y_enable), .res(resetn), .clk(CLOCK_50));
 
 //--Counter--
 
