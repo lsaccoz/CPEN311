@@ -1,4 +1,4 @@
-module statemachine (CLOCK_50, resetn,                                            // INPUT: board signals
+module task3statemachine (CLOCK_50, resetn,                                            // INPUT: board signals
 					 x_done, y_done, c_done, crit_pos, loop_done,                 // INPUT: control signals
 					 x_start, y_start, c_start,                                   // OUTPUT: start signals
 					 x_en, y_en, c_en, y_off_en, x_off_en, crit_en, crit_sel,   // OUTPUT: enable and sel signals
