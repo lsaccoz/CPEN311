@@ -71,7 +71,7 @@ always @(*) begin
 				 
 		`Crit_Upd2: {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank, ring_en, ring_start} = (loop_done) ?
 					{`Done     , 1'b0   , 1'b0   , 1'b0, 1'b0, col   , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b0 , 1'b1   , 1'b0      } :
-					{`Draw     , 1'b0   , 1'b0   , 1'b1, 1'b1, col   , 1'b0   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b0 , 1'b0   , 1'b0      } ;
+					{`Draw     , 1'b0   , 1'b0   , 1'b1, 1'b1, col   , 1'b1   , 1'b1, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b1, 1'b0 , 1'b0   , 1'b0      } ;
 					
 		`Done:      {next_state, x_start, y_start, x_en, y_en, colour, c_start, c_en, x_off_en, y_off_en, crit_en, crit_sel, plot, blank, ring_en, ring_start} = (rings_done)?
 					{`Done     , 1'b0   , 1'b0   , 1'b0, 1'b0, col   , 1'b0   , 1'b0, 1'b0    , 1'b0    , 1'b0   , 1'b0    , 1'b0, 1'b0 , 1'b0   , 1'b0      } :

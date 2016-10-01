@@ -73,7 +73,7 @@ always @(*) begin
 	end
 end
 
-assign new_offsety = offsety + 1;
+assign new_offsety = (ring_en) ? 0 : offsety + 1;
 
 flipflope #(16) offsetx_ff (.in(new_offsetx), .out(offsetx), .en(x_off_enable), .res(resetn), .clk(CLOCK_50));
 flipflope #(16) offsety_ff (.in(new_offsety), .out(offsety), .en(y_off_enable), .res(resetn), .clk(CLOCK_50));

@@ -71,7 +71,7 @@ task4datapath dp(.CLOCK_50(CLOCK_50),.resetn(resetn),.x_start(x_start),.y_start(
 				.colour(colour),.counter_start(c_start),.counter_enable(c_en),
 				.y_off_enable(y_off_en),.x_off_enable(x_off_en),.crit_enable(crit_en),.crit_sel(crit_sel),
 				.plot(plot),.c_done(c_done),.crit_pos(crit_pos),.x_done(x_done),.y_done(y_done),.blank(blank),.x(x),.y(y),.loop_done(loop_done),
-				.ring_en(ring_en), .ring_start(ring_start), .rings_done(rings_done). .col(col)  );
+				.ring_en(ring_en), .ring_start(ring_start), .rings_done(rings_done), .col(col)  );
 
 
 task4statemachine sm(CLOCK_50, resetn, x_done, y_done, c_done, crit_pos,
