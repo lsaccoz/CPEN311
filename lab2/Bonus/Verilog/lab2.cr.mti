@@ -1,0 +1,43 @@
+{C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_adapter.v} {1 {vlog -work work -stats=none {C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_adapter.v}
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module vga_adapter
+
+Top level modules:
+	vga_adapter
+
+} {} {}} C:/Users/Peter/Desktop/lab2git/CPEN311/lab2/Task2_3_4/Verilog/task3_statemachine.v {1 {vlog -work work -stats=none C:/Users/Peter/Desktop/lab2git/CPEN311/lab2/Task2_3_4/Verilog/task3_statemachine.v
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module task3statemachine
+
+Top level modules:
+	task3statemachine
+
+} {} {}} {C:/Users/Peter/Desktop/lab2git/CPEN311/lab2/Task2_3_4/Verilog/task3 _tb.v} {1 {vlog -work work -stats=none {C:/Users/Peter/Desktop/lab2git/CPEN311/lab2/Task2_3_4/Verilog/task3 _tb.v}
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module task3_tb
+
+Top level modules:
+	task3_tb
+
+} {} {}} {C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_address_translator.v} {1 {vlog -work work -stats=none {C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_address_translator.v}
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module vga_address_translator
+
+Top level modules:
+	vga_address_translator
+
+} {} {}} {C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_controller.v} {1 {vlog -work work -stats=none {C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_controller.v}
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module vga_controller
+
+Top level modules:
+	vga_controller
+
+} {} {}} {C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_pll.v} {1 {vlog -work work -stats=none {C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab2/Task2_3_4/Verilog/vga_pll.v}
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module vga_pll
+
+Top level modules:
+	vga_pll
+
+} {} {}}
