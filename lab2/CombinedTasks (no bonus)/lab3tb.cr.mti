@@ -1,0 +1,43 @@
+{C:/Users/Peter/Desktop/New folder (2)/task4_statemachine.v} {1 {vlog -work work -stats=none {C:/Users/Peter/Desktop/New folder (2)/task4_statemachine.v}
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module task4statemachine
+
+Top level modules:
+	task4statemachine
+
+} {} {}} {C:/Users/Peter/Desktop/New folder (2)/vga_address_translator.v} {1 {vlog -work work -stats=none {C:/Users/Peter/Desktop/New folder (2)/vga_address_translator.v}
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module vga_address_translator
+
+Top level modules:
+	vga_address_translator
+
+} {} {}} {C:/Users/Peter/Desktop/New folder (2)/task4 _tb.v} {1 {vlog -work work -stats=none {C:/Users/Peter/Desktop/New folder (2)/task4 _tb.v}
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module task4_tb
+
+Top level modules:
+	task4_tb
+
+} {} {}} {C:/Users/Peter/Desktop/New folder (2)/vga_controller.v} {1 {vlog -work work -stats=none {C:/Users/Peter/Desktop/New folder (2)/vga_controller.v}
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module vga_controller
+
+Top level modules:
+	vga_controller
+
+} {} {}} {C:/Users/Peter/Desktop/New folder (2)/vga_pll.v} {1 {vlog -work work -stats=none {C:/Users/Peter/Desktop/New folder (2)/vga_pll.v}
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module vga_pll
+
+Top level modules:
+	vga_pll
+
+} {} {}} {C:/Users/Peter/Desktop/New folder (2)/vga_adapter.v} {1 {vlog -work work -stats=none {C:/Users/Peter/Desktop/New folder (2)/vga_adapter.v}
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module vga_adapter
+
+Top level modules:
+	vga_adapter
+
+} {} {}}
