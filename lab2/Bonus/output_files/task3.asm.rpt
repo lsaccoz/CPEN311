@@ -1,5 +1,5 @@
 Assembler report for task3
-Wed Oct 05 18:31:04 2016
+Thu Oct 06 14:43:18 2016
 Quartus II 64-Bit Version 15.0.0 Build 145 04/22/2015 SJ Web Edition
 
 
@@ -10,7 +10,7 @@ Quartus II 64-Bit Version 15.0.0 Build 145 04/22/2015 SJ Web Edition
   2. Assembler Summary
   3. Assembler Settings
   4. Assembler Generated Files
-  5. Assembler Device Options: C:/Users/Peter/Desktop/lab2git/CPEN311/lab2/Task2_3_4/output_files/task3.sof
+  5. Assembler Device Options: C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab2/Bonus/output_files/task3.sof
   6. Assembler Messages
 
 
@@ -38,7 +38,7 @@ agreement for further details.
 +---------------------------------------------------------------+
 ; Assembler Summary                                             ;
 +-----------------------+---------------------------------------+
-; Assembler Status      ; Successful - Wed Oct 05 18:31:04 2016 ;
+; Assembler Status      ; Successful - Thu Oct 06 14:43:18 2016 ;
 ; Revision Name         ; task3                                 ;
 ; Top-level Entity Name ; task3                                 ;
 ; Family                ; Cyclone V                             ;
@@ -53,24 +53,24 @@ agreement for further details.
 +--------+---------+---------------+
 
 
-+------------------------------------------------------------------------------+
-; Assembler Generated Files                                                    ;
-+------------------------------------------------------------------------------+
-; File Name                                                                    ;
-+------------------------------------------------------------------------------+
-; C:/Users/Peter/Desktop/lab2git/CPEN311/lab2/Task2_3_4/output_files/task3.sof ;
-+------------------------------------------------------------------------------+
++-----------------------------------------------------------------------------------+
+; Assembler Generated Files                                                         ;
++-----------------------------------------------------------------------------------+
+; File Name                                                                         ;
++-----------------------------------------------------------------------------------+
+; C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab2/Bonus/output_files/task3.sof ;
++-----------------------------------------------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------------------+
-; Assembler Device Options: C:/Users/Peter/Desktop/lab2git/CPEN311/lab2/Task2_3_4/output_files/task3.sof ;
-+----------------+---------------------------------------------------------------------------------------+
-; Option         ; Setting                                                                               ;
-+----------------+---------------------------------------------------------------------------------------+
-; Device         ; 5CSEMA5F31C6                                                                          ;
-; JTAG usercode  ; 0x00DBA8B8                                                                            ;
-; Checksum       ; 0x00DBA8B8                                                                            ;
-+----------------+---------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------+
+; Assembler Device Options: C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab2/Bonus/output_files/task3.sof ;
++----------------+--------------------------------------------------------------------------------------------+
+; Option         ; Setting                                                                                    ;
++----------------+--------------------------------------------------------------------------------------------+
+; Device         ; 5CSEMA5F31C6                                                                               ;
+; JTAG usercode  ; 0x00DB6DE3                                                                                 ;
+; Checksum       ; 0x00DB6DE3                                                                                 ;
++----------------+--------------------------------------------------------------------------------------------+
 
 
 +--------------------+
@@ -79,13 +79,13 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Assembler
     Info: Version 15.0.0 Build 145 04/22/2015 SJ Web Edition
-    Info: Processing started: Wed Oct 05 18:30:54 2016
+    Info: Processing started: Thu Oct 06 14:43:01 2016
 Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off lab2 -c task3
 Info (115030): Assembler is generating device programming files
 Info: Quartus II 64-Bit Assembler was successful. 0 errors, 0 warnings
     Info: Peak virtual memory: 764 megabytes
-    Info: Processing ended: Wed Oct 05 18:31:04 2016
-    Info: Elapsed time: 00:00:10
-    Info: Total CPU time (on all processors): 00:00:09
+    Info: Processing ended: Thu Oct 06 14:43:18 2016
+    Info: Elapsed time: 00:00:17
+    Info: Total CPU time (on all processors): 00:00:17
 
 

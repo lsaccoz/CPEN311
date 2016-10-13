@@ -866,9 +866,9 @@ y[4] <= flipflope:y_register.out
 y[5] <= flipflope:y_register.out
 y[6] <= flipflope:y_register.out
 loop_done <= <GND>
-outcolour[0] <= LessThan0.DB_MAX_OUTPUT_PORT_TYPE
-outcolour[1] <= <GND>
-outcolour[2] <= <GND>
+outcolour[0] <= outcolour.DB_MAX_OUTPUT_PORT_TYPE
+outcolour[1] <= outcolour.DB_MAX_OUTPUT_PORT_TYPE
+outcolour[2] <= outcolour.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |task3|task3datapath:dp|flipflope:x_register

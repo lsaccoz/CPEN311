@@ -65,8 +65,8 @@ end
 
 
 always @(*) begin
-	if(comparisonx+comparisony<=120)
-		outcolour = 3'b001;
+	if(comparisonx+comparisony<900)
+		outcolour = x % 8;
 	else
 		outcolour = 3'b000;
 end
