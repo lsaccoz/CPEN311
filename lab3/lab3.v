@@ -125,10 +125,10 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
       draw.x <= 0;
       draw.y <= 0;		  
       paddle_x <= PADDLE_X_START[DATA_WIDTH_COORD-1:0];
-      puck1.x <= FACEOFF_X1[DATA_WIDTH_COORD-1:0];
-      puck1.y <= FACEOFF_Y1[DATA_WIDTH_COORD-1:0];
-      puck1_velocity.x <= VELOCITY_START_X1[DATA_WIDTH_COORD-1:0];
-      puck1_velocity.y <= VELOCITY_START_Y1[DATA_WIDTH_COORD-1:0];
+      puck1.x <= FACEOFF_X1[DATA_WIDTH_COORD-1+8:8];
+      puck1.y <= FACEOFF_Y1[DATA_WIDTH_COORD-1+8:8];
+      puck1_velocity.x <= VELOCITY_START_X1[DATA_WIDTH_COORD-1+8:8];
+      puck1_velocity.y <= VELOCITY_START_Y1[DATA_WIDTH_COORD-1+8:8];
       colour <= BLACK;
       plot <= 1'b1;
       state <= INIT;
@@ -148,15 +148,15 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
             draw.x <= 0;
             draw.y <= 0;		  
             paddle_x <= PADDLE_X_START[DATA_WIDTH_COORD-1:0];
-            puck1.x <= FACEOFF_X1[DATA_WIDTH_COORD-1:0];
-            puck1.y <= FACEOFF_Y1[DATA_WIDTH_COORD-1:0];
-            puck1_velocity.x <= VELOCITY_START_X1[DATA_WIDTH_COORD-1:0];
-            puck1_velocity.y <= VELOCITY_START_Y1[DATA_WIDTH_COORD-1:0];
+            puck1.x <= FACEOFF_X1[DATA_WIDTH_COORD-1+8:0];
+            puck1.y <= FACEOFF_Y1[DATA_WIDTH_COORD-1+8:0];
+            puck1_velocity.x <= VELOCITY_START_X1[DATA_WIDTH_COORD-1+8:0];
+            puck1_velocity.y <= VELOCITY_START_Y1[DATA_WIDTH_COORD-1+8:0];
 			
-			puck2.x <= FACEOFF_X2[DATA_WIDTH_COORD-1:0];
-            puck2.y <= FACEOFF_Y2[DATA_WIDTH_COORD-1:0];
-            puck2_velocity.x <= VELOCITY_START_X2[DATA_WIDTH_COORD-1:0];
-            puck2_velocity.y <= VELOCITY_START_Y2[DATA_WIDTH_COORD-1:0];
+				puck2.x <= FACEOFF_X2[DATA_WIDTH_COORD-1+8:0];
+            puck2.y <= FACEOFF_Y2[DATA_WIDTH_COORD-1+8:0];
+            puck2_velocity.x <= VELOCITY_START_X2[DATA_WIDTH_COORD-1+8:0];
+            puck2_velocity.y <= VELOCITY_START_Y2[DATA_WIDTH_COORD-1+8:0];
 			
             colour <= BLACK;
             plot <= 1'b1;
@@ -485,8 +485,8 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
         ERASE_PUCK1:  begin
 				  colour <= BLACK;  // erase by setting colour to black
                   plot <= 1'b1;
-				  draw <= puck1;  // the x and y lines are driven by "puck1" which 
-				                 // holds the location of the puck1.
+				  draw.x <= (puck1.x>>8);
+				  draw.y <= (puck1.y>>8);  
 				  state <= ERASE_PUCK2;  // next state is DRAW_PUCK1.
 
 				  // update the location of the puck1 
@@ -494,22 +494,22 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 				  puck1.y = puck1.y + puck1_velocity.y;				  
 				  
 				  // See if we have bounced off the top of the screen
-				  if (puck1.y == TOP_LINE + 1) begin
+				  if ((puck1.y>>8) == TOP_LINE + 1) begin
 				     puck1_velocity.y = 0-puck1_velocity.y;
 				  end // if
 
 				  // See if we have bounced off the right or left of the screen
-				  if ( (puck1.x == LEFT_LINE + 1) |
-				       (puck1.x == RIGHT_LINE - 1)) begin 
+				  if ( ((puck1.x>>8) == LEFT_LINE + 1) |
+				       ((puck1.x>>8) == RIGHT_LINE - 1)) begin 
 				     puck1_velocity.x = 0-puck1_velocity.x;
 				  end // if  
 		
               // See if we have bounced of the paddle on the bottom row of
 	           // the screen		
 				  
-		        if (puck1.y == PADDLE_ROW - 1) begin 
-				     if ((puck1.x >= paddle_x) &
-					      (puck1.x <= paddle_x + paddle_width)) begin
+		        if ((puck1.y>>8) == PADDLE_ROW - 1) begin 
+				     if (((puck1.x>>8) >= paddle_x) &
+					      ((puck1.x>>8) <= paddle_x + paddle_width)) begin
 							
 					     // we have bounced off the paddle
    				     puck1_velocity.y = 0-puck1_velocity.y;				
@@ -523,8 +523,9 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 			 ERASE_PUCK2:  begin
 				  //colour <= BLACK;  // erase by setting colour to black
                   //plot <= 1'b1;
-				  draw <= puck2;  // the x and y lines are driven by "puck2" which 
-				                 // holds the location of the puck2.
+				  draw.x <= (puck2.x>>8);
+				  draw.y <= (puck2.y>>8); 
+				  
 				  state <= DRAW_PUCK1;  // next state is DRAW_PUCK1.
 
 				  // update the location of the puck1 
@@ -532,22 +533,22 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 				  puck2.y = puck2.y + puck2_velocity.y;				  
 				  
 				  // See if we have bounced off the top of the screen
-				  if (puck2.y == TOP_LINE + 1) begin
+				  if ((puck2.y>>8) == TOP_LINE + 1) begin
 				     puck2_velocity.y = 0-puck2_velocity.y;
 				  end // if
 
 				  // See if we have bounced off the right or left of the screen
-				  if ( (puck2.x == LEFT_LINE + 1) |
-				       (puck2.x == RIGHT_LINE - 1)) begin 
+				  if ( ((puck2.x>>8) == LEFT_LINE + 1) |
+				       ((puck2.x>>8) == RIGHT_LINE - 1)) begin 
 				     puck2_velocity.x = 0-puck2_velocity.x;
 				  end // if  
 		
               // See if we have bounced of the paddle on the bottom row of
 	           // the screen		
 				  
-		        if (puck2.y == PADDLE_ROW - 1) begin 
-				     if ((puck2.x >= paddle_x) &
-					      (puck2.x <= paddle_x + paddle_width)) begin
+		        if ((puck2.y>>8) == PADDLE_ROW - 1) begin 
+				     if (((puck2.x>>8) >= paddle_x) &
+					      ((puck2.x>>8) <= paddle_x + paddle_width)) begin
 							
 					     // we have bounced off the paddle
    				     puck2_velocity.y = 0-puck2_velocity.y;				
@@ -566,14 +567,16 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
         DRAW_PUCK1: begin
 				  colour <= YELLOW;
                   plot <= 1'b1;
-				  draw <= puck1;
+				  draw.x <= (puck1.x>>8);
+				  draw.y <= (puck1.y>>8); 
 				  state <= DRAW_PUCK2;	  // draw the second puck	  
            end // case DRAW_puck11
 		   
 		DRAW_PUCK2: begin
 				  colour <= CYAN;
                   plot <= 1'b1;
-				  draw <= puck2;
+				  draw.x <= (puck2.x>>8);
+				  draw.y <= (puck2.y>>8); 
 				  state <= IDLE;	  // next state is IDLE (which is the delay state)			  
            end // case DRAW_puck11
 			  

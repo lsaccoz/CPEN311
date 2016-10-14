@@ -19,16 +19,16 @@ parameter SCREEN_HEIGHT = 120;
 
 
 typedef struct {
-   reg [DATA_WIDTH_COORD-1:0] x;
-   reg [DATA_WIDTH_COORD-1:0] y;
+   reg [DATA_WIDTH_COORD-1+8:0] x;
+   reg [DATA_WIDTH_COORD-1+8:0] y;
 } point;
 
 // A new type that describes a velocity.  Each component of the
 // velocity can be either + or -, so use signed type
 
 typedef struct {
-   reg signed [DATA_WIDTH_COORD-1:0] x;
-   reg signed [DATA_WIDTH_COORD-1:0] y;
+   reg signed [DATA_WIDTH_COORD-1+8:0] x;
+   reg signed [DATA_WIDTH_COORD-1+8:0] y;
 } velocity;
   
   //Colours.  
@@ -67,18 +67,18 @@ parameter RIGHT_LINE = SCREEN_WIDTH - 5;
 parameter LEFT_LINE = 5;
 
 // These parameters describe the starting location for the puck 
-parameter FACEOFF_X1 = 2*(SCREEN_WIDTH/3);
-parameter FACEOFF_Y1 = SCREEN_HEIGHT/2;
+parameter FACEOFF_X1 = (2*(SCREEN_WIDTH/3))<<8;
+parameter FACEOFF_Y1 = (SCREEN_HEIGHT/2)<<8;
 
-parameter FACEOFF_X2 = SCREEN_WIDTH/3;
-parameter FACEOFF_Y2 = SCREEN_HEGIHT/2;
+parameter FACEOFF_X2 = (SCREEN_WIDTH/3)<<8;
+parameter FACEOFF_Y2 = (SCREEN_HEIGHT/2)<<8;
   
 // Starting Velocity
-parameter VELOCITY_START_X1 = 1;
-parameter VELOCITY_START_Y1 = -1;
+parameter VELOCITY_START_X1 = 16'b0000000011011101; // -0.25
+parameter VELOCITY_START_Y1 = -16'b0000000010000000;
 
-parameter VELOCITY_START_X2 = 1;
-parameter VELOCITY_START_Y2 = 1;
+parameter VELOCITY_START_X2 = 16'b0000000011101110;
+parameter VELOCITY_START_Y2 = -16'b0000000001000000;
   
 // This parameter indicates how many times the counter should count in the
 // START state between each invocation of the main loop of the program.
