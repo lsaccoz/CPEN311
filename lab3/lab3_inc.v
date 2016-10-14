@@ -84,6 +84,8 @@ parameter VELOCITY_START_Y = -1;
 // each invocation of the main loop.  The 50000000 is because we are
 // clocking our circuit with  a 50Mhz clock. 
   
-parameter LOOP_SPEED = 50000000/8;  // 8Hz
+parameter LOOP_SPEED = 50000000/30;  // 8Hz
+
+parameter SHRINK_SPEED = 50000000*20;
   
 `endif // _my_incl_vh_

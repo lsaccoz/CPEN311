@@ -66,6 +66,11 @@ velocity puck_velocity;
 
 integer clock_counter = 0;
 
+// This integer is used to track the paddle shrink
+
+integer shrink_counter = 0;
+integer paddle_width = PADDLE_WIDTH;
+
 // Be sure to see all the constants, types, etc. defined in lab3_inc.h
 
 // include the VGA controller structurally.  The VGA controller 
@@ -147,6 +152,8 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
             puck_velocity.y <= VELOCITY_START_Y[DATA_WIDTH_COORD-1:0];
             colour <= BLACK;
             plot <= 1'b1;
+				shrink_counter<=0;
+				paddle_width <= PADDLE_WIDTH;
             state <= START;
            end	 // case INIT 
 			  
@@ -316,7 +323,18 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 			 
 			 plot <= 1'b0;  // nothing to draw while we are in this state
 			 
-          if (clock_counter < LOOP_SPEED) begin
+			 if(shrink_counter < SHRINK_SPEED) begin
+				shrink_counter <= shrink_counter + 1'b1;
+			 end
+			 else begin
+				shrink_counter <= 0;
+				if(paddle_width>4) begin
+					paddle_width <= paddle_width - 1'b1;
+					state <= ERASE_PADDLE_ENTER;
+				end
+			 end
+			 
+			 if (clock_counter < LOOP_SPEED) begin
 			    clock_counter <= clock_counter + 1'b1;
           end else begin 
 			 
@@ -353,7 +371,7 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 		  ERASE_PADDLE_LOOP: begin
 		  
 		      // See if we are done erasing the paddle (done with this state)
-            if (draw.x == paddle_x+PADDLE_WIDTH[DATA_WIDTH_COORD-1:0]) begin
+            if (draw.x == paddle_x+paddle_width[DATA_WIDTH_COORD-1:0]+1) begin
 			
 				  // If so, the next state is DRAW_PADDLE_ENTER. 
 				  
@@ -391,7 +409,7 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 				     // If the user has pressed the right button check to make sure we
 					  // are not already at the rightmost position of the screen
 					  
-				     if (paddle_x <= RIGHT_LINE - PADDLE_WIDTH - 2) begin 
+				     if (paddle_x <= RIGHT_LINE - paddle_width - 2) begin 
 
      					   // add 2 to the paddle position
                   	paddle_x = paddle_x + 2'b10;
@@ -432,7 +450,7 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 		  
 		      // See if we are done drawing the paddle
 
-            if (draw.x == paddle_x+PADDLE_WIDTH) begin
+            if (draw.x == paddle_x+paddle_width) begin
 				
 				  // If we are done drawing the paddle, set up for the next state
 				  
@@ -483,7 +501,7 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 				  
 		        if (puck.y == PADDLE_ROW - 1) begin 
 				     if ((puck.x >= paddle_x) &
-					      (puck.x <= paddle_x + PADDLE_WIDTH)) begin
+					      (puck.x <= paddle_x + paddle_width)) begin
 							
 					     // we have bounced off the paddle
    				     puck_velocity.y = 0-puck_velocity.y;				
