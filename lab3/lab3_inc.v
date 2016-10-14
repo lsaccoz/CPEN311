@@ -74,8 +74,11 @@ parameter FACEOFF_X2 = SCREEN_WIDTH/3;
 parameter FACEOFF_Y2 = SCREEN_HEGIHT/2;
   
 // Starting Velocity
-parameter VELOCITY_START_X = 1;
-parameter VELOCITY_START_Y = -1;
+parameter VELOCITY_START_X1 = 1;
+parameter VELOCITY_START_Y1 = -1;
+
+parameter VELOCITY_START_X2 = 1;
+parameter VELOCITY_START_Y2 = 1;
   
 // This parameter indicates how many times the counter should count in the
 // START state between each invocation of the main loop of the program.
@@ -84,7 +87,7 @@ parameter VELOCITY_START_Y = -1;
 // each invocation of the main loop.  The 50000000 is because we are
 // clocking our circuit with  a 50Mhz clock. 
   
-parameter LOOP_SPEED = 50000000/30;  // 8Hz
+parameter LOOP_SPEED = 50000000/30;  // 30Hz
 
 parameter SHRINK_SPEED = 50000000*20;
   
