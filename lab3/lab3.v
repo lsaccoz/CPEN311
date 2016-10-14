@@ -193,11 +193,11 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 		  // ============================================================
 		  
 		  DRAW_TOP_ENTER: begin				
-			     draw.x <= LEFT_LINE[DATA_WIDTH_COORD-1:0];
-				  draw.y <= TOP_LINE[DATA_WIDTH_COORD-1:0];
-				  colour <= WHITE;
-				  state <= DRAW_TOP_LOOP;
-			  end // case DRAW_TOP_ENTER
+			    draw.x <= LEFT_LINE[DATA_WIDTH_COORD-1:0];
+				draw.y <= TOP_LINE[DATA_WIDTH_COORD-1:0];
+				colour <= draw.x % 8;
+				state <= DRAW_TOP_LOOP;
+		  end // case DRAW_TOP_ENTER
 			  
 		  // ============================================================
         // The DRAW_TOP_LOOP state is used to draw the rest of the bar on 
@@ -235,6 +235,7 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 			     draw.x <= RIGHT_LINE[DATA_WIDTH_COORD-1:0];
 				  draw.y <= TOP_LINE[DATA_WIDTH_COORD-1:0];
 				  state <= DRAW_RIGHT_LOOP;
+				  colour <= draw.y % 8;
 			  end // case DRAW_RIGHT_ENTER		  
    		  
 		  // ============================================================
@@ -417,7 +418,7 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 				  
    		     draw.y <= PADDLE_ROW[DATA_WIDTH_COORD-1:0];				  
 				  draw.x <= paddle_x;  // get ready for next state			  
-              colour <= WHITE; // when we draw the paddle, the colour will be WHITE		  
+              colour <= GREEN; // when we draw the paddle, the colour will be WHITE		  
 		        state <= DRAW_PADDLE_LOOP;
             end // case DRAW_PADDLE_ENTER
 				
@@ -457,7 +458,7 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 		  
         ERASE_PUCK:  begin
 				  colour <= BLACK;  // erase by setting colour to black
-              plot <= 1'b1;
+                  plot <= 1'b1;
 				  draw <= puck;  // the x and y lines are driven by "puck" which 
 				                 // holds the location of the puck.
 				  state <= DRAW_PUCK;  // next state is DRAW_PUCK.
@@ -499,7 +500,7 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 		  // ============================================================
 		  
         DRAW_PUCK: begin
-				  colour <= WHITE;
+				  colour <= GREEN;
               plot <= 1'b1;
 				  draw <= puck;
 				  state <= IDLE;	  // next state is IDLE (which is the delay state)			  

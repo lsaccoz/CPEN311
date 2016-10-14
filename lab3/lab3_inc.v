@@ -50,7 +50,8 @@ typedef enum int unsigned {INIT = 1 , START = 2,
               DRAW_LEFT_ENTER = 64, DRAW_LEFT_LOOP = 128, IDLE =256, 
               ERASE_PADDLE_ENTER = 512, ERASE_PADDLE_LOOP = 1024, 
               DRAW_PADDLE_ENTER = 2048, DRAW_PADDLE_LOOP = 4096, 
-              ERASE_PUCK = 8192, DRAW_PUCK = 16384 } draw_state_type;  
+              ERASE_PUCK1 = 8192, ERASE_PUCK2 = 8193, 
+			  DRAW_PUCK1 = 16384, DRAW_PUCK2 = 16385 } draw_state_type;  
 
 // Here are some parameters that we will use in the code. 
  
@@ -66,8 +67,11 @@ parameter RIGHT_LINE = SCREEN_WIDTH - 5;
 parameter LEFT_LINE = 5;
 
 // These parameters describe the starting location for the puck 
-parameter FACEOFF_X = SCREEN_WIDTH/2;
-parameter FACEOFF_Y = SCREEN_HEIGHT/2;
+parameter FACEOFF_X1 = 2*(SCREEN_WIDTH/3);
+parameter FACEOFF_Y1 = SCREEN_HEIGHT/2;
+
+parameter FACEOFF_X2 = SCREEN_WIDTH/3;
+parameter FACEOFF_Y2 = SCREEN_HEGIHT/2;
   
 // Starting Velocity
 parameter VELOCITY_START_X = 1;
