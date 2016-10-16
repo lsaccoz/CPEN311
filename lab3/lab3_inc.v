@@ -79,6 +79,9 @@ parameter VELOCITY_START_Y1 = -16'b0000000010000000;
 
 parameter VELOCITY_START_X2 = 16'b0000000011101110;
 parameter VELOCITY_START_Y2 = -16'b0000000001000000;
+
+//Gravitational Constant
+parameter GRAV_CONSTANT = 16'b0000000000000010;
   
 // This parameter indicates how many times the counter should count in the
 // START state between each invocation of the main loop of the program.

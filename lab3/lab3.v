@@ -350,6 +350,8 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 				  // next state which is ERASE_PADDLE_ENTER
 				  
               clock_counter <= 0;
+				  puck1_velocity.y <= puck1_velocity.y + GRAV_CONSTANT;
+				  puck2_velocity.y <= puck2_velocity.y + GRAV_CONSTANT;
               state <= ERASE_PADDLE_ENTER;  // next state
 	  
 			 end  // if
@@ -494,7 +496,7 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 				  puck1.y = puck1.y + puck1_velocity.y;				  
 				  
 				  // See if we have bounced off the top of the screen
-				  if ((puck1.y>>8) == TOP_LINE + 1) begin
+				  if ((puck1.y>>8) <= TOP_LINE + 1) begin
 				     puck1_velocity.y = 0-puck1_velocity.y;
 				  end // if
 
@@ -507,7 +509,7 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
               // See if we have bounced of the paddle on the bottom row of
 	           // the screen		
 				  
-		        if ((puck1.y>>8) == PADDLE_ROW - 1) begin 
+		        if ((puck1.y>>8) >= PADDLE_ROW - 1) begin 
 				     if (((puck1.x>>8) >= paddle_x) &
 					      ((puck1.x>>8) <= paddle_x + paddle_width)) begin
 							
@@ -530,10 +532,11 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
 
 				  // update the location of the puck1 
 				  puck2.x = puck2.x + puck2_velocity.x;
-				  puck2.y = puck2.y + puck2_velocity.y;				  
-				  
+				  puck2.y = puck2.y + puck2_velocity.y;
+
+
 				  // See if we have bounced off the top of the screen
-				  if ((puck2.y>>8) == TOP_LINE + 1) begin
+				  if ((puck2.y>>8) <= TOP_LINE + 1) begin
 				     puck2_velocity.y = 0-puck2_velocity.y;
 				  end // if
 
@@ -546,7 +549,7 @@ always_ff @(posedge CLOCK_50, negedge KEY[3])
               // See if we have bounced of the paddle on the bottom row of
 	           // the screen		
 				  
-		        if ((puck2.y>>8) == PADDLE_ROW - 1) begin 
+		        if ((puck2.y>>8) >= PADDLE_ROW - 1) begin 
 				     if (((puck2.x>>8) >= paddle_x) &
 					      ((puck2.x>>8) <= paddle_x + paddle_width)) begin
 							
