@@ -15,15 +15,15 @@ SW[7] => SW[7].IN4
 SW[8] => SW[8].IN4
 SW[9] => SW[9].IN4
 LEDR[0] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
-LEDR[1] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[1] <= LEDR.DB_MAX_OUTPUT_PORT_TYPE
 LEDR[2] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
-LEDR[3] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[3] <= LEDR.DB_MAX_OUTPUT_PORT_TYPE
 LEDR[4] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
-LEDR[5] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[5] <= LEDR.DB_MAX_OUTPUT_PORT_TYPE
 LEDR[6] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
-LEDR[7] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[7] <= LEDR.DB_MAX_OUTPUT_PORT_TYPE
 LEDR[8] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
-LEDR[9] <= WideOr0.DB_MAX_OUTPUT_PORT_TYPE
+LEDR[9] <= LEDR.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |lab4_top|ksa:multicore[0].core
@@ -42,23 +42,10 @@ SW[6] => ~NO_FANOUT~
 SW[7] => ~NO_FANOUT~
 SW[8] => ~NO_FANOUT~
 SW[9] => ~NO_FANOUT~
-stop => next_state_reset[15].OUTPUTSELECT
-stop => next_state_reset[14].OUTPUTSELECT
-stop => next_state_reset[13].OUTPUTSELECT
-stop => next_state_reset[12].OUTPUTSELECT
-stop => next_state_reset[11].OUTPUTSELECT
-stop => next_state_reset[10].OUTPUTSELECT
-stop => next_state_reset[9].OUTPUTSELECT
-stop => next_state_reset[8].OUTPUTSELECT
-stop => next_state_reset[7].OUTPUTSELECT
-stop => next_state_reset[6].OUTPUTSELECT
-stop => next_state_reset[5].OUTPUTSELECT
-stop => next_state_reset[4].OUTPUTSELECT
-stop => next_state_reset[3].OUTPUTSELECT
-stop => next_state_reset[2].OUTPUTSELECT
-stop => next_state_reset[1].OUTPUTSELECT
-stop => next_state_reset[0].OUTPUTSELECT
+stop => Selector24.IN7
+stop => Selector26.IN11
 done <= done~reg0.DB_MAX_OUTPUT_PORT_TYPE
+none <= none~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |lab4_top|ksa:multicore[0].core|s_memory:u0
@@ -1738,23 +1725,10 @@ SW[6] => ~NO_FANOUT~
 SW[7] => ~NO_FANOUT~
 SW[8] => ~NO_FANOUT~
 SW[9] => ~NO_FANOUT~
-stop => next_state_reset[15].OUTPUTSELECT
-stop => next_state_reset[14].OUTPUTSELECT
-stop => next_state_reset[13].OUTPUTSELECT
-stop => next_state_reset[12].OUTPUTSELECT
-stop => next_state_reset[11].OUTPUTSELECT
-stop => next_state_reset[10].OUTPUTSELECT
-stop => next_state_reset[9].OUTPUTSELECT
-stop => next_state_reset[8].OUTPUTSELECT
-stop => next_state_reset[7].OUTPUTSELECT
-stop => next_state_reset[6].OUTPUTSELECT
-stop => next_state_reset[5].OUTPUTSELECT
-stop => next_state_reset[4].OUTPUTSELECT
-stop => next_state_reset[3].OUTPUTSELECT
-stop => next_state_reset[2].OUTPUTSELECT
-stop => next_state_reset[1].OUTPUTSELECT
-stop => next_state_reset[0].OUTPUTSELECT
+stop => Selector24.IN7
+stop => Selector26.IN11
 done <= done~reg0.DB_MAX_OUTPUT_PORT_TYPE
+none <= none~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |lab4_top|ksa:multicore[1].core|s_memory:u0
@@ -3434,23 +3408,10 @@ SW[6] => ~NO_FANOUT~
 SW[7] => ~NO_FANOUT~
 SW[8] => ~NO_FANOUT~
 SW[9] => ~NO_FANOUT~
-stop => next_state_reset[15].OUTPUTSELECT
-stop => next_state_reset[14].OUTPUTSELECT
-stop => next_state_reset[13].OUTPUTSELECT
-stop => next_state_reset[12].OUTPUTSELECT
-stop => next_state_reset[11].OUTPUTSELECT
-stop => next_state_reset[10].OUTPUTSELECT
-stop => next_state_reset[9].OUTPUTSELECT
-stop => next_state_reset[8].OUTPUTSELECT
-stop => next_state_reset[7].OUTPUTSELECT
-stop => next_state_reset[6].OUTPUTSELECT
-stop => next_state_reset[5].OUTPUTSELECT
-stop => next_state_reset[4].OUTPUTSELECT
-stop => next_state_reset[3].OUTPUTSELECT
-stop => next_state_reset[2].OUTPUTSELECT
-stop => next_state_reset[1].OUTPUTSELECT
-stop => next_state_reset[0].OUTPUTSELECT
+stop => Selector24.IN7
+stop => Selector26.IN11
 done <= done~reg0.DB_MAX_OUTPUT_PORT_TYPE
+none <= none~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |lab4_top|ksa:multicore[2].core|s_memory:u0
@@ -5130,23 +5091,10 @@ SW[6] => ~NO_FANOUT~
 SW[7] => ~NO_FANOUT~
 SW[8] => ~NO_FANOUT~
 SW[9] => ~NO_FANOUT~
-stop => next_state_reset[15].OUTPUTSELECT
-stop => next_state_reset[14].OUTPUTSELECT
-stop => next_state_reset[13].OUTPUTSELECT
-stop => next_state_reset[12].OUTPUTSELECT
-stop => next_state_reset[11].OUTPUTSELECT
-stop => next_state_reset[10].OUTPUTSELECT
-stop => next_state_reset[9].OUTPUTSELECT
-stop => next_state_reset[8].OUTPUTSELECT
-stop => next_state_reset[7].OUTPUTSELECT
-stop => next_state_reset[6].OUTPUTSELECT
-stop => next_state_reset[5].OUTPUTSELECT
-stop => next_state_reset[4].OUTPUTSELECT
-stop => next_state_reset[3].OUTPUTSELECT
-stop => next_state_reset[2].OUTPUTSELECT
-stop => next_state_reset[1].OUTPUTSELECT
-stop => next_state_reset[0].OUTPUTSELECT
+stop => Selector24.IN7
+stop => Selector26.IN11
 done <= done~reg0.DB_MAX_OUTPUT_PORT_TYPE
+none <= none~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
 |lab4_top|ksa:multicore[3].core|s_memory:u0

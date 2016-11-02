@@ -1,4 +1,4 @@
-module ksa( CLOCK_50, KEY, SW, stop, done);
+module ksa( CLOCK_50, KEY, SW, stop, done, none);
 
 parameter jump = 1;
 parameter offset = 0;
@@ -8,7 +8,7 @@ input [3:0] KEY;
 input [9:0] SW;
 
 input stop;
-output reg done;
+output reg done, none;
 // state names here as you complete your design	
 
 typedef enum {
@@ -76,14 +76,13 @@ wire [7:0] secretKey2 = secretKey[7:0];
 
 wire [7:0] secretKeyByte;
 
-wire [15:0] next_state_reset = stop ? state_done : state;
-
 always @(posedge CLOCK_50) begin
-	case (next_state_reset)
+	case (state)
 		state_init_count: begin
 			crackCounter<=offset;
 			state<=state_init;
 			done<=0;
+			none<=0;
 		end
 		state_init: begin
 			i=0;
@@ -91,7 +90,10 @@ always @(posedge CLOCK_50) begin
 			address = i;
 			data = i;
 			wren = 1'b1;
-			state <= state_fill;
+			state = state_fill;
+			
+			if(stop)
+				state = state_done;
 		end
 		
 		state_fill: begin
@@ -259,6 +261,9 @@ always @(posedge CLOCK_50) begin
 		state_done: begin
 			wren = 0;
 			dec_wren = 1'b0;
+			
+			if(~done)
+				none = 1'b1;
 			
 			state<=state_done;
 		end
