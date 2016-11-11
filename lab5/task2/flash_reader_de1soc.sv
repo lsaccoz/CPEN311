@@ -1,6 +1,7 @@
 module flash_reader_de1soc( 
- CLOCK_50, 
- KEY);
+CLOCK_50, CLOCK2_50, KEY,
+         AUD_DACLRCK, AUD_ADCLRCK, AUD_BCLK,AUD_ADCDAT,
+			FPGA_I2C_SDAT, FPGA_I2C_SCLK,AUD_DACDAT,AUD_XCK);
 
 input CLOCK_50;
 input [3:0] KEY;
@@ -9,6 +10,10 @@ wire clk, resetb;
 
 assign clk = CLOCK_50;
 assign resetb = KEY[3];
+
+input CLOCK2_50,AUD_DACLRCK, AUD_ADCLRCK, AUD_BCLK,AUD_ADCDAT;
+inout FPGA_I2C_SDAT;
+output FPGA_I2C_SCLK,AUD_DACDAT,AUD_XCK;
 
 
 wire            flash_mem_read;
@@ -35,28 +40,33 @@ flash flash_inst (
 assign flash_mem_byteenable = 4'b1111;
 
 reg [31:0] readData;
+reg [31:0] counter;
 
-wire [7:0] address;
-wire [15:0] data;
-wire wren;
-wire [15:0] q;
+//===Sound===
 
-task2_mem memory_on_chip (
-	address,
-	clk,
-	data,
-	wren,
-	q
-);
+reg read_ready, write_ready, write_s;
+reg [15:0] writedata_left, writedata_right;
+reg [15:0] readdata_left, readdata_right;	
+wire reset, read_s;
+
+clock_generator my_clock_gen (CLOCK2_50, reset, AUD_XCK);
+audio_and_video_config cfg (CLOCK_50, reset, FPGA_I2C_SDAT, FPGA_I2C_SCLK);
+audio_codec codec (CLOCK_50,reset,read_s,write_s,writedata_left, writedata_right,AUD_ADCDAT,AUD_BCLK,AUD_ADCLRCK,AUD_DACLRCK,read_ready, write_ready,readdata_left, readdata_right,AUD_DACDAT);
+
+assign read_s = 1'b0;
+assign reset = ~resetb;
 
 typedef enum {  
 	s_init,
 	s_waitRequest,
 	s_dataValid,
-	s_writeToMem_MSB,
+	s_FIFOWait_LSB,
 	s_writeToMem_LSB,
-	s_ifLoop,
-	s_done
+	s_waitBetween,
+	s_FIFOWait_MSB,
+	s_writeToMem_MSB,
+	s_waitEnd,
+	s_ifLoop
 } states;
 
 states state; 
@@ -69,8 +79,6 @@ always @(posedge clk) begin
 	case (next_state_reset)
 	
 	s_init: begin
-		address = 8'b0;
-		wren = 1'b0;
 		flash_mem_address = 23'b0;
 		
 		if(flash_mem_waitrequest == 1'b0) begin
@@ -89,38 +97,57 @@ always @(posedge clk) begin
 	s_dataValid: begin
 		if (flash_mem_readdatavalid == 1'b1) begin
 			readData = flash_mem_readdata;
-			state <= s_writeToMem_LSB;
+			state <= s_FIFOWait_LSB;
 			flash_mem_read = 1'b0;
 		end
 	end
 	
+	s_FIFOWait_LSB: begin
+		write_s <= 1'b0;
+		if(write_ready == 1'b1)
+			state <= s_writeToMem_LSB;
+	end
+	
 	s_writeToMem_LSB: begin
-		state <= s_writeToMem_MSB;
-		wren = 1'b1;
-		data = readData[15:0];
+		state <= s_waitBetween;
+		writedata_left = readData[15:0];
+		writedata_right = readData[15:0];
+		write_s = 1'b1;
+	end
+	
+	s_waitBetween: begin
+		if(write_ready == 1'b0)
+			state = s_FIFOWait_MSB;
+	end
+	
+	s_FIFOWait_MSB: begin
+		write_s <= 1'b0;
+		if(write_ready == 1'b1)
+			state <= s_writeToMem_MSB;
 	end
 	
 	s_writeToMem_MSB: begin
-		address = address+1'b1;
-		state <= s_ifLoop;
-		wren = 1'b1;
-		data = readData[31:16];
+		state <= s_waitEnd;
+		writedata_left = readData[31:16];
+		writedata_right = readData[31:16];
+		write_s = 1'b1;
+
+		counter = counter+1'b1;
+	end
+	
+	s_waitEnd: begin
+		if(write_ready == 1'b0)
+			state = s_ifLoop;
 	end
 	
 	s_ifLoop: begin
-		wren = 1'b0;
-		if (address >= 16'd255) begin
-			state = s_done;
+		if (counter >= 32'h200000) begin
+			state = s_init;
 		end else begin
-			address = address + 1'b1;
 			flash_mem_address = flash_mem_address + 1'b1;
 			flash_mem_read = 1'b1;
 			state = s_waitRequest;
 		end
-	end
-	
-	s_done: begin
-		// do nothing
 	end
 	
 	default: state<=s_init;
@@ -132,14 +159,3 @@ end
 
 
 endmodule
-
-
-
-
-
-
-
-
-
-
-
