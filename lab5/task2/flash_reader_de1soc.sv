@@ -142,9 +142,10 @@ always @(posedge clk) begin
 	
 	s_ifLoop: begin
 		if (counter >= 32'h200000) begin
+			counter = 0;
 			state = s_init;
 		end else begin
-			flash_mem_address = flash_mem_address + 1'b1;
+			flash_mem_address = flash_mem_address + 2'b10;
 			flash_mem_read = 1'b1;
 			state = s_waitRequest;
 		end

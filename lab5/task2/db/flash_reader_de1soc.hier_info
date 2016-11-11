@@ -10,9 +10,9 @@ AUD_ADCLRCK => AUD_ADCLRCK.IN1
 AUD_BCLK => AUD_BCLK.IN1
 AUD_ADCDAT => AUD_ADCDAT.IN1
 FPGA_I2C_SDAT <> audio_and_video_config:cfg.port2
-FPGA_I2C_SCLK << audio_and_video_config:cfg.port3
-AUD_DACDAT << audio_codec:codec.port14
-AUD_XCK << clock_generator:my_clock_gen.port2
+FPGA_I2C_SCLK <= audio_and_video_config:cfg.port3
+AUD_DACDAT <= audio_codec:codec.port14
+AUD_XCK <= clock_generator:my_clock_gen.port2
 
 
 |flash_reader_de1soc|flash:flash_inst
