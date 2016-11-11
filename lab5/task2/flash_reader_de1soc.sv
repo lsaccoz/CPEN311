@@ -37,13 +37,13 @@ assign flash_mem_byteenable = 4'b1111;
 reg [31:0] readData;
 
 wire [7:0] address;
-wire [7:0] data;
+wire [15:0] data;
 wire wren;
 wire [15:0] q;
 
 task2_mem memory_on_chip (
 	address,
-	clock,
+	clk,
 	data,
 	wren,
 	q
@@ -53,7 +53,8 @@ typedef enum {
 	s_init,
 	s_waitRequest,
 	s_dataValid,
-	s_writeToMem,
+	s_writeToMem_MSB,
+	s_writeToMem_LSB,
 	s_ifLoop,
 	s_done
 } states;
@@ -62,35 +63,48 @@ states state;
 
 wire [5:0] next_state_reset;
 
-assign next_state_reset = resetb ? state : s_init;
+assign next_state_reset = resetb ? state:s_init;
 
-always @(*) begin
-	case (next_state_reset) begin
+always @(posedge clk) begin
+	case (next_state_reset)
 	
 	s_init: begin
 		address = 8'b0;
 		wren = 1'b0;
 		flash_mem_address = 23'b0;
-		flash_mem_read = 1'b1;
-		state = s_wait;
+		
+		if(flash_mem_waitrequest == 1'b0) begin
+			flash_mem_read = 1'b1;
+			state = s_waitRequest;
+		end
+		
 	end
 	
 	s_waitRequest: begin
-		if (flash_mem_waitrequest == 1'b0)
+		if (flash_mem_waitrequest == 1'b0) begin
 			state <= s_dataValid;
+		end
 	end
 	
 	s_dataValid: begin
 		if (flash_mem_readdatavalid == 1'b1) begin
-			regData = flash_mem_readdata;
-			state <= s_writeToMem;
+			readData = flash_mem_readdata;
+			state <= s_writeToMem_LSB;
+			flash_mem_read = 1'b0;
 		end
 	end
 	
-	s_writeToMem: begin
+	s_writeToMem_LSB: begin
+		state <= s_writeToMem_MSB;
+		wren = 1'b1;
+		data = readData[15:0];
+	end
+	
+	s_writeToMem_MSB: begin
+		address = address+1'b1;
 		state <= s_ifLoop;
 		wren = 1'b1;
-		data = regData;
+		data = readData[31:16];
 	end
 	
 	s_ifLoop: begin
@@ -99,6 +113,9 @@ always @(*) begin
 			state = s_done;
 		end else begin
 			address = address + 1'b1;
+			flash_mem_address = flash_mem_address + 1'b1;
+			flash_mem_read = 1'b1;
+			state = s_waitRequest;
 		end
 	end
 	
@@ -106,9 +123,7 @@ always @(*) begin
 		// do nothing
 	end
 	
-	end
-	
-	
+	default: state<=s_init;
 	
 	endcase
 
