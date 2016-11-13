@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <deploy
- date="2016.11.10.17:18:41"
- outputDirectory="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/">
+ date="2016.11.12.17:57:37"
+ outputDirectory="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/">
  <perimeter>
   <parameter
      name="AUTO_DEVICE_FAMILY"
@@ -48,33 +48,33 @@
   <parameter name="AUTO_DEVICE_SPEEDGRADE" value="" />
   <generatedFiles>
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/alt_sld_fab.v"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/alt_sld_fab.v"
        type="VERILOG" />
   </generatedFiles>
   <childGeneratedFiles>
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab.v"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab.v"
        type="VERILOG" />
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_presplit.sv"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_presplit.sv"
        type="SYSTEM_VERILOG"
        attributes="TOP_LEVEL_FILE" />
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_splitter.sv"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_splitter.sv"
        type="SYSTEM_VERILOG"
        attributes="TOP_LEVEL_FILE" />
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_ident.sv"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_ident.sv"
        type="SYSTEM_VERILOG"
        attributes="TOP_LEVEL_FILE" />
   </childGeneratedFiles>
   <sourceFiles>
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/alt_sld_fab_wrapper_hw.tcl" />
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/alt_sld_fab_wrapper_hw.tcl" />
   </sourceFiles>
   <childSourceFiles>
    <file
@@ -163,24 +163,24 @@
   <parameter name="MIRROR" value="0" />
   <generatedFiles>
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab.v"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab.v"
        type="VERILOG" />
   </generatedFiles>
   <childGeneratedFiles>
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_presplit.sv"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_presplit.sv"
        type="SYSTEM_VERILOG"
        attributes="TOP_LEVEL_FILE" />
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_splitter.sv"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_splitter.sv"
        type="SYSTEM_VERILOG"
        attributes="TOP_LEVEL_FILE" />
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd"
        type="VHDL"
        attributes="" />
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_ident.sv"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_ident.sv"
        type="SYSTEM_VERILOG"
        attributes="TOP_LEVEL_FILE" />
   </childGeneratedFiles>
@@ -249,7 +249,7 @@
   <parameter name="RECEIVE_WIDTHS" value="33" />
   <generatedFiles>
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_presplit.sv"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_presplit.sv"
        type="SYSTEM_VERILOG"
        attributes="TOP_LEVEL_FILE" />
   </generatedFiles>
@@ -279,7 +279,7 @@
   <parameter name="ADD_INTERFACE_ASGN" value="0" />
   <generatedFiles>
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_splitter.sv"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_splitter.sv"
        type="SYSTEM_VERILOG"
        attributes="TOP_LEVEL_FILE" />
   </generatedFiles>
@@ -318,7 +318,7 @@
   <parameter name="FORCE_IR_CAPTURE_FEATURE" value="1" />
   <generatedFiles>
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_sldfabric.vhd"
        type="VHDL"
        attributes="" />
   </generatedFiles>
@@ -346,7 +346,7 @@
   <parameter name="DESIGN_HASH" value="7107b2c6341892262b94" />
   <generatedFiles>
    <file
-       path="C:/Users/Peter/Desktop/LocalCPENGitRepo/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_ident.sv"
+       path="C:/Users/Luigi/OneDrive/Documents/UBC/CPEN 311/CPEN311/lab5/task2/db/ip/sld99b47d72/submodules/alt_sld_fab_alt_sld_fab_ident.sv"
        type="SYSTEM_VERILOG"
        attributes="TOP_LEVEL_FILE" />
   </generatedFiles>

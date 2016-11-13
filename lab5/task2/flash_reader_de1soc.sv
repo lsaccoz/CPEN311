@@ -8,6 +8,11 @@ input [3:0] KEY;
 
 wire clk, resetb;
 
+wire slow = ~KEY[0];
+wire fast = ~KEY[1];
+
+reg slow_repeat;
+
 assign clk = CLOCK_50;
 assign resetb = KEY[3];
 
@@ -73,14 +78,15 @@ states state;
 
 wire [5:0] next_state_reset;
 
-assign next_state_reset = resetb ? state:s_init;
+assign next_state_reset = resetb ? state : s_init;
 
 always @(posedge clk) begin
 	case (next_state_reset)
 	
 	s_init: begin
 		flash_mem_address = 23'b0;
-		
+		slow_repeat = 1'b0;
+		counter = 0;
 		if(flash_mem_waitrequest == 1'b0) begin
 			flash_mem_read = 1'b1;
 			state = s_waitRequest;
@@ -132,7 +138,7 @@ always @(posedge clk) begin
 		writedata_right = readData[31:16];
 		write_s = 1'b1;
 
-		counter = counter+1'b1;
+		counter = counter + 2'b10;
 	end
 	
 	s_waitEnd: begin
@@ -142,16 +148,24 @@ always @(posedge clk) begin
 	
 	s_ifLoop: begin
 		if (counter >= 32'h200000) begin
-			counter = 0;
 			state = s_init;
 		end else begin
-			flash_mem_address = flash_mem_address + 2'b10;
+			if (slow) begin
+				flash_mem_address = flash_mem_address + slow_repeat;
+				counter = slow_repeat ? counter : counter - 2'b10;
+				slow_repeat = ~slow_repeat;
+			end else if (fast) begin
+				flash_mem_address = flash_mem_address + 2'b10;
+				counter = counter + 2'b10;
+			end else begin
+				flash_mem_address = flash_mem_address + 1'b1;
+			end
 			flash_mem_read = 1'b1;
 			state = s_waitRequest;
 		end
 	end
 	
-	default: state<=s_init;
+	default: state <= s_init;
 	
 	endcase
 
