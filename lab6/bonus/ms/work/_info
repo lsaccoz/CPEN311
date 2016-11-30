@@ -1,0 +1,53 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+dC:/Users/Peter/Desktop/New folder (5)
+vcalculation
+DXx6 sv_std 3 std 0 22 <EOTafDcUY:cQeO^ICn]m3
+Z0 !s110 1480487136
+!i10b 1
+!s100 =eWWm[7CjSBY65dnV;oQ;1
+I5bUV;SHR>?SnM5F7UE[2C1
+Z1 V`JN@9S9cnhjKRR_L]QIcM3
+!s105 calculation_v_unit
+S1
+Z2 dC:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab6/bonus/ms
+w1480487124
+8C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab6/bonus/calculation.v
+FC:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab6/bonus/calculation.v
+L0 1
+Z3 OV;L;10.3d;59
+r1
+!s85 0
+31
+!s108 1480487136.936000
+!s107 C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab6/bonus/calculation.v|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab6/bonus/calculation.v|
+!i113 1
+o-work work -sv
+vcalculation_tb
+R0
+!i10b 1
+!s100 ScjFH21EFXj?JZjTNK]j?0
+IOc0CGi@cob`2efH[UW?Sd2
+R1
+R2
+w1480486813
+8C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab6/bonus/calculation_tb.v
+FC:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab6/bonus/calculation_tb.v
+L0 1
+R3
+r1
+!s85 0
+31
+!s108 1480487136.885000
+!s107 C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab6/bonus/calculation_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab6/bonus/calculation_tb.v|
+!i113 1
+o-work work

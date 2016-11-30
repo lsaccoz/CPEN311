@@ -1,0 +1,8 @@
+{C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab6/bonus/calculation_tb.v} {1 {vlog -work work -stats=none {C:/Users/Peter/Desktop/LocalCPENLabs/Year 3/CPEN311/CPEN311/lab6/bonus/calculation_tb.v}
+Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+-- Compiling module calculation_tb
+
+Top level modules:
+	calculation_tb
+
+} {} {}}
